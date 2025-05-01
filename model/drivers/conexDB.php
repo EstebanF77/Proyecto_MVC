@@ -1,5 +1,5 @@
 <?php
-namespace App\models\drivers;
+namespace App\model\drivers;
 
 use mysqli;
 
