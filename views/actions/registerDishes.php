@@ -1,6 +1,6 @@
 <?php
 
-$controller = new dishesController();
+$controller = new DishesController();
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header('location: ../personas.php');
 }
@@ -9,8 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header('location: ../personas.php');
 }
 $res = empty($_POST['idPerson'])
-    ? $controller->saveNewPerson($_POST)
-    : $controller->updatePerson($_POST);
+    ? $controller->saveNewDish($_POST)
+    : $controller->updateDish($_POST);
 ?>
 <head>
     <meta charset="UTF-8">
