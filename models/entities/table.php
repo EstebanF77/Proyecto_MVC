@@ -94,7 +94,7 @@ class Table extends Model{
 
     
         $conexDb->close();
-        return $personas;,,
+        return $personas;
     }
     */
 
