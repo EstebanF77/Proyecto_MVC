@@ -1,5 +1,5 @@
 <?php
-namespace App\models\entities\model;
+namespace App\models\entities;
 
 abstract class Model{
 
