@@ -4,7 +4,6 @@ namespace App\models\entities\Mcategories;
 use App\model\Model;
 use App\models\drivers\conexDB;
 
-
 class Categories extends Model{
     protected $id = null;
     protected $nombre = '';
