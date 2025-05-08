@@ -1,7 +1,7 @@
 <?php
-namespace App\models\entities\Mcategories;
+namespace App\models\entities;
 
-use App\model\Model;
+
 use App\models\drivers\conexDB;
 
 

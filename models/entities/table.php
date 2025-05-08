@@ -1,8 +1,9 @@
 <?php
-namespace App\model\entities;
+namespace App\models\entities;
 
-use App\model\drivers\conexDB;
-use App\model\Model;
+
+use App\models\drivers\conexDB;
+
 
 class Table extends Model{
 
