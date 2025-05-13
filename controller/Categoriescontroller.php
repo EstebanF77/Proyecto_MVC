@@ -7,6 +7,13 @@ use App\models\entities\Table;
 
 class CategoriesController
 {
+    
+    public function getAllCategories() 
+    {
+        $model = new Categories();       
+        $categories = $model->all();    
+        return $categories;
+    }
 
     function saveNewCategorie($request){
         $model = new Categories();
