@@ -33,7 +33,7 @@ $res = empty($_POST['idDish'])
     }
     ?>
     <br>
-    <a href="../dishes.php">Volver</a>
+    <a href="../formDishes.php">Volver</a>
 </body>
 
 </html>
