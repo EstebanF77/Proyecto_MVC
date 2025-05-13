@@ -1,14 +1,19 @@
 <?php
+include '../../models/drivers/conexDB.php';
+include '../../models/entities/model.php';
+include '../../models/entities/dishes.php';
+include '../../controller/dishesController.php';
 
-$controller = new DishesController();
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header('location: ../personas.php');
-}
+use app\controller\DihsesController;
+$controller = new DihsesController();
+
+
+
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header('location: ../personas.php');
+    header('location: ../dishes.php');
 }
-$res = empty($_POST['idPerson'])
+$res = empty($_POST['idDish'])
     ? $controller->saveNewDish($_POST)
     : $controller->updateDish($_POST);
 ?>
