@@ -25,4 +25,6 @@ class DihsesController
         $res = $model->update();
         return $res ? 'yes' : 'not';
     }
+
+   
 }
