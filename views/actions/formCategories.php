@@ -6,7 +6,7 @@
     <title>Registrar Categoría</title>
 </head>
 <body>
-    <form action="views\actions\registerCategories.php" method="post">
+    <form action="registerCategories.php" method="post">
         <div>
             <label for="nameCategory">Nombre de la categoría</label>
             <input type="text" id="nameCategory" name="nameCategory" required>
