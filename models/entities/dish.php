@@ -6,10 +6,10 @@ use App\models\drivers\conexDB;
 
 class Dish extends Model
 {
-    private $id;
-    private $description;
-    private $price;
-    private $idCategory;
+    protected $id;
+    protected $description;
+    protected $price;
+    protected $idCategory;
 
     public function all()
     {
@@ -56,11 +56,47 @@ class Dish extends Model
     }
 
     public function delete()
-    {
-        $conexDb = new ConexDB();
-        $sql = "DELETE FROM dishes WHERE id = " . $this->id;
-        $res = $conexDb->exeSQL($sql);
-        $conexDb->close();
-        return $res;
+{
+    $conexDb = new ConexDB();
+
+    // Verificar si está en uso en order_details
+    $sqlCheck = "SELECT COUNT(*) AS total FROM order_details WHERE idDish = " . $this->id;
+    $resCheck = $conexDb->exeSQL($sqlCheck);
+    
+    if ($resCheck && $row = $resCheck->fetch_assoc()) {
+        if ((int)$row['total'] > 0) {
+            $conexDb->close();
+            return 'in_use'; // plato usado, no se puede eliminar
+        }
     }
+
+    // Si no está en uso, se elimina
+    $sql = "DELETE FROM dishes WHERE id = " . $this->id;
+    $res = $conexDb->exeSQL($sql);
+    $conexDb->close();
+    return $res ? 'yes' : 'error';
+}
+
+
+    public function find()
+{
+    $conexDb = new ConexDB();
+    $sql = "SELECT * FROM dishes WHERE id = " . $this->id;
+    $res = $conexDb->exeSQL($sql);
+    $dish = null;
+
+    if ($res && $res->num_rows > 0) {
+        while ($row = $res->fetch_assoc()) {
+            $dish = new Dish();
+            $dish->set('id', $row['id']);
+            $dish->set('description', $row['description']);
+            $dish->set('price', $row['price']);
+            $dish->set('idCategory', $row['idCategory']);
+            break; // solo necesitamos un registro
+        }
+    }
+
+    $conexDb->close();
+    return $dish;
+}
 }
