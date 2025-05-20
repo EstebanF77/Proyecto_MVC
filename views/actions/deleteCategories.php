@@ -2,16 +2,17 @@
 include '../../models/drivers/conexDB.php';
 include '../../models/entities/model.php';
 include '../../models/entities/categories.php';
-include '../../controller/Categoriescontroller.php';
+include '../../controller/categoriesController.php';
 
 use app\controller\CategoriesController;
 $controller = new CategoriesController();
 
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
+if (!isset($_GET['id'])) {
     header('location: ../categories.php');
+    exit;
 }
 
-$id = $_POST['idCategorie'];
+$id = $_GET['id'];
 $res = $controller->removeCategorie($id);
 ?>
 <head>
