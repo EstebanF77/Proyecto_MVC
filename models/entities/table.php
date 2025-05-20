@@ -1,8 +1,11 @@
 <?php
 namespace App\models\entities;
 
+require_once __DIR__ . '/model.php';
 
-use App\models\drivers\conexDB;
+require_once __DIR__ . '/../drivers/conexDB.php';
+
+use App\models\drivers\ConexDB;
 
 
 class Table extends Model{
@@ -14,7 +17,7 @@ class Table extends Model{
         $conexDB = new ConexDB();
         $sql = "select * from restaurant_tables";
         $res = $conexDB-> exeSQL($sql); //se pasa la consulta a la base de datos 
-        $Tables = []; //se estructura la informacion que entra a de la base de datos
+        $tables = []; // Inicializamos el array
 
         if ($res->num_rows>0){
             while($row = $res->fetch_assoc()){
@@ -30,32 +33,59 @@ class Table extends Model{
         
     }
 
+    public function find() {
+        $conexDB = new ConexDB();
+        $sql = "select * from restaurant_tables where id = " . $this->id;
+        $res = $conexDB->exeSQL($sql);
+        $table = null;
+
+        if ($res->num_rows > 0) {
+            $row = $res->fetch_assoc();
+            $table = new Table();
+            $table->set('id', $row['id']);
+            $table->set('name', $row['name']);
+        }
+        $conexDB->close();
+        return $table;
+    }
+
     public function save(){
         $conexDB= new ConexDB();
         $sql = "insert into restaurant_tables (name) values ";
-        $sql .= "('" . $this->name . ")";
+        $sql .= "('" . $this->name . "')";
         $res = $conexDB->exeSQL($sql);
         $conexDB->close();
         return $res;
     }
     public function update()
     {
-        $conexDb = new ConexDB();
+        $conexDB = new ConexDB();
         $sql = "update restaurant_tables set ";
-        $sql .= "nane='" . $this->name . "',";
+        $sql .= "name='" . $this->name . "'";
         $sql .= " where id=" . $this->id;
-        $res = $conexDb->exeSQL($sql);
-        $conexDb->close();
+        $res = $conexDB->exeSQL($sql);
+        $conexDB->close();
         return $res;
     }
     public function delete(){
-
-        $conexDb = new ConexDB();
-        $sql = "delete from restaurant_tables where id=".$this->id;
-        $res = $conexDb->exeSQL($sql);
-        $conexDb->close();
-        return $res;
-
+        $conexDB = new ConexDB();
+        
+        // Primero verificar si la mesa está en uso
+        $checkSql = "SELECT COUNT(*) as count FROM orders WHERE idTable = " . $this->id;
+        $checkRes = $conexDB->exeSQL($checkSql);
+        $row = $checkRes->fetch_assoc();
+        
+        if ($row['count'] > 0) {
+            $conexDB->close();
+            return 'in_use';
+        }
+        
+        // Si no está en uso, proceder con la eliminación
+        $sql = "delete from restaurant_tables where id=" . $this->id;
+        $res = $conexDB->exeSQL($sql);
+        $conexDB->close();
+        
+        return $res ? 'yes' : 'error';
     }
 
     /*
