@@ -49,7 +49,7 @@ if ($idDish) {
             <?php foreach ($categories as $category): ?>
                 <option value="<?= $category->get('id') ?>" 
                     <?= $dish && $dish->get('idCategory') == $category->get('id') ? 'selected' : '' ?>>
-                    <?= $category->get('nombre') ?>
+                    <?= $category->get('name') ?>
                 </option>
             <?php endforeach; ?>
         </select>

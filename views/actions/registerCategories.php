@@ -31,6 +31,6 @@ $res = empty($_POST['idCategorie'])
     }
     ?>
     <br>
-    <a href="../formCategories.php">Volver</a>
+    <a href="../categories.php">Volver</a>
 </body>
 ?>
