@@ -53,6 +53,8 @@ $categories = $controller->getAllCategories();
             </table>
         </div>
     </div>
+    <a href="../index.php">Volver al inicio</a>
+
 </body>
 
 </html>
