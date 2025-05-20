@@ -7,13 +7,12 @@ include '../../controller/Categoriescontroller.php';
 use app\controller\CategoriesController;
 $controller = new CategoriesController();
 
-
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header('location: ../categories.php');
 }
-$res = empty($_POST['idCategorie'])
-    ? $controller->saveNewCategorie($_POST)
-    : $controller->updateCategorie($_POST);
+
+$id = $_POST['idCategorie'];
+$res = $controller->removeCategorie($id);
 ?>
 <head>
     <meta charset="UTF-8">
@@ -24,16 +23,21 @@ $res = empty($_POST['idCategorie'])
 <body>
     <h1>Resultado de la operación</h1>
     <?php
-    if ($res == 'yes') {
-        echo '<p>Datos guardados</p>';
-    } else {
-        echo  '<p>No se pudo guardar los datos</p>';
+    switch($res) {
+        case 'yes':
+            echo '<p>Categoría eliminada exitosamente</p>';
+            break;
+        case 'empty':
+            echo '<p>La categoría no existe</p>';
+            break;
+        case 'has_dishes':
+            echo '<p>No se puede eliminar la categoría porque tiene platos asociados</p>';
+            break;
+        default:
+            echo '<p>No se pudo eliminar la categoría</p>';
     }
     ?>
     <br>
-    <a href="../formCategories.php">Volver</a>
+    <a href="../categories.php">Volver</a>
 </body>
-
-
-
-?>
+</html> 

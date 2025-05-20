@@ -29,13 +29,26 @@ class CategoriesController
         return $res ? 'yes' : 'not';
     }
 
-     public function removeCategorie($id){
+    public function removeCategorie($id){
         $model = new Categories();
-         $model->set('id', $id);
+        $model->set('id', $id);
+        
+        // Verificar si la categoría existe
         if(empty($model->find())){
             return "empty";
         }
-        $res =  $model->delete();
+
+        // Verificar si hay platos asociados a esta categoría
+        $dishModel = new Dish();
+        $dishes = $dishModel->all();
+        foreach($dishes as $dish) {
+            if($dish->get('idCategory') == $id) {
+                return "has_dishes"; // No se puede eliminar porque tiene platos asociados
+            }
+        }
+
+        // Si no hay platos asociados, proceder con la eliminación
+        $res = $model->delete();
         return $res ? 'yes' : 'not';
     }
 }
