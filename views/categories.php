@@ -18,41 +18,39 @@ $categories = $controller->getAllCategories();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>categorias</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="container">
+        <div class="header">
             <h1>Categorías</h1>
             <a href="actions/formCategories.php" class="btn btn-primary">Nueva Categoría</a>
         </div>
 
-        <div class="table-responsive">
-            <table border="1" cellpadding="6" class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($categories as $category) {
-                        echo '<tr>';
-                        echo '  <td>' . $category->get('name') . '</td>';
-                        echo '  <td>';
-                        echo '      <a href="actions/formCategories.php?id=' . $category->get('id') . '" class="btn btn-sm btn-warning">Editar</a> ';
-                        echo '      <a href="actions/deleteCategories.php?id=' . $category->get('id') . '" class="btn btn-sm btn-danger" >Eliminar</a>';
-                        echo '  </td>';
-                        echo '</tr>';
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($categories as $category) {
+                    echo '<tr>';
+                    echo '  <td>' . $category->get('name') . '</td>';
+                    echo '  <td class="actions">';
+                    echo '      <a href="actions/formCategories.php?id=' . $category->get('id') . '" class="btn btn-warning">Editar</a> ';
+                    echo '      <a href="actions/deleteCategories.php?id=' . $category->get('id') . '" class="btn btn-danger">Eliminar</a>';
+                    echo '  </td>';
+                    echo '</tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+        <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
     </div>
-    <a href="../index.php">Volver al inicio</a>
-
 </body>
 
 </html>

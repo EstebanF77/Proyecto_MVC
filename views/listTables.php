@@ -17,32 +17,37 @@ $tables = $controller->getAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesas</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <h1>Mesas registradas</h1>
-    <a href="actions/formTables.php">Crear nueva mesa</a>
+    <div class="container">
+        <div class="header">
+            <h1>Mesas registradas</h1>
+            <a href="actions/formTables.php" class="btn btn-primary">Crear nueva mesa</a>
+        </div>
 
-    <table border="1" cellpadding="6">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($tables as $table): ?>
+        <table>
+            <thead>
                 <tr>
-                    <td><?= $table->get('name') ?></td>
-                    <td>
-                        <a href="actions/formTables.php?id=<?= $table->get('id') ?>">Modificar</a>
-                        <a href="actions/deleteTables.php?id=<?= $table->get('id') ?>">Eliminar</a>
-                    </td>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <a href="../index.php">Volver al inicio</a>
+            </thead>
+            <tbody>
+                <?php foreach ($tables as $table): ?>
+                    <tr>
+                        <td><?= $table->get('name') ?></td>
+                        <td class="actions">
+                            <a href="actions/formTables.php?id=<?= $table->get('id') ?>" class="btn btn-warning">Modificar</a>
+                            <a href="actions/deleteTables.php?id=<?= $table->get('id') ?>" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
+    </div>
 </body>
 
 </html>
