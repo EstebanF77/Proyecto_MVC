@@ -1,30 +1,65 @@
 <?php
 namespace app\controller;
 
-use App\models\entities\Categories;
+
 use App\models\entities\Dish;
-use App\models\entities\Table;
 
-class DihsesController
+
+
+    class DishesController
 {
-
-    function saveNewDish($resquest){
-        $model = new Dish();
-        $model->set('nombre', $resquest['namePerson']);
-        $model->set('email', $resquest['emailPerson']);
-        $model->set('edad', $resquest['agePerson']);
-        $res = $model->update();
-        return $res ? 'yes' : 'not';
-    }
-    function updateDish ($resquest){
-        $model = new Dish();
-        $model->set('id', $resquest['idPerson']);
-        $model->set('nombre', $resquest['namePerson']);
-        $model->set('email', $resquest['emailPerson']);
-        $model->set('edad', $resquest['agePerson']);
-        $res = $model->update();
-        return $res ? 'yes' : 'not';
+    // Obtener todos los platos
+    public function getAllDishes()
+    {
+        $dish = new Dish();
+        return $dish->all();
     }
 
-   
+    // Guardar nuevo plato
+    public function saveNewDish($data)
+    {
+        if (empty($data['descriptionDish']) || empty($data['unitPrice']) || empty($data['categories'])) {
+            return 'error';
+        }
+
+        $dish = new Dish();
+        $dish->set('description', $data['descriptionDish']);
+        $dish->set('price', $data['unitPrice']);
+        $dish->set('idCategory', $data['categories']);
+
+        return $dish->save() ? 'yes' : 'error';
+    }
+
+    // Actualizar un plato existente (solo descripción y precio)
+    public function updateDish($data)
+    {
+        if (empty($data['id']) || empty($data['descriptionDish']) || empty($data['unitPrice'])) {
+            return 'error';
+        }
+
+        $dish = new Dish();
+        $dish->set('id', $data['id']);
+        $dish->set('description', $data['descriptionDish']);
+        $dish->set('price', $data['unitPrice']);
+
+        return $dish->update() ? 'yes' : 'error';
+    }
+
+    // Eliminar un plato (debes validar antes si no está relacionado)
+    public function deleteDish($id)
+    {
+        if (!$id) return 'error';
+
+    $dish = new Dish();
+    $dish->set('id', $id);
+    return $dish->delete(); // puede retornar 'yes', 'error' o 'in_use'
+    }
+
+    // Obtener un solo plato por ID usando find()
+    public function getDishById($id)
+    {
+        $dish = new Dish();
+        $dish->set('id', $id);
+        return $dish->find();
+    }
 }

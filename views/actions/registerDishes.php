@@ -1,39 +1,39 @@
 <?php
 include '../../models/drivers/conexDB.php';
 include '../../models/entities/model.php';
-include '../../models/entities/dishes.php';
-include '../../controller/dishesController.php';
+include '../../models/entities/dish.php';
+include '../../controller/DishesController.php';
 
-use app\controller\DihsesController;
-$controller = new DihsesController();
+use app\controller\DishesController;
 
+$controller = new DishesController();
 
-
-
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header('location: ../dishes.php');
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header('Location: ../formDishes.php');
+    exit;
 }
-$res = empty($_POST['idDish'])
+
+$id = $_POST['id'] ?? null;
+
+$res = empty($id)
     ? $controller->saveNewDish($_POST)
     : $controller->updateDish($_POST);
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado operación</title>
 </head>
-
 <body>
     <h1>Resultado de la operación</h1>
-    <?php
-    if ($res == 'yes') {
-        echo '<p>Datos guardados</p>';
-    } else {
-        echo  '<p>No se pudo guardar los datos</p>';
-    }
-    ?>
+    <?php if ($res === 'yes'): ?>
+        <p>Datos guardados correctamente.</p>
+    <?php else: ?>
+        <p>No se pudo guardar los datos.</p>
+    <?php endif; ?>
     <br>
     <a href="../formDishes.php">Volver</a>
 </body>
-
 </html>
