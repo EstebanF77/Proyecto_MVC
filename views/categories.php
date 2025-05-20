@@ -31,7 +31,6 @@ $categories = $controller->getAllCategories();
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Acciones</th>
                     </tr>
@@ -40,11 +39,10 @@ $categories = $controller->getAllCategories();
                     <?php
                     foreach ($categories as $category) {
                         echo '<tr>';
-                        echo '  <td>' . $category->get('id') . '</td>';
                         echo '  <td>' . $category->get('name') . '</td>';
                         echo '  <td>';
                         echo '      <a href="actions/formCategories.php?id=' . $category->get('id') . '" class="btn btn-sm btn-warning">Editar</a> ';
-                        echo '      <a href="actions/deleteCategories.php?id=' . $category->get('id') . '" class="btn btn-sm btn-danger" onclick="return confirm(\'¿Está seguro de eliminar esta categoría?\')">Eliminar</a>';
+                        echo '      <a href="actions/deleteCategories.php?id=' . $category->get('id') . '" class="btn btn-sm btn-danger" >Eliminar</a>';
                         echo '  </td>';
                         echo '</tr>';
                     }

@@ -5,40 +5,40 @@ include '../../models/entities/categories.php';
 include '../../controller/categoriesController.php';
 
 use app\controller\CategoriesController;
+
 $controller = new CategoriesController();
-
-if (!isset($_GET['id'])) {
-    header('location: ../categories.php');
-    exit;
-}
-
-$id = $_GET['id'];
-$res = $controller->removeCategorie($id);
+$res = $controller->removeCategorie($_GET['id'] ?? null);
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado operación</title>
+    <title>Eliminar categoría</title>
 </head>
 
 <body>
     <h1>Resultado de la operación</h1>
     <?php
-    switch($res) {
+    switch ($res) {
         case 'yes':
-            echo '<p>Categoría eliminada exitosamente</p>';
-            break;
-        case 'empty':
-            echo '<p>La categoría no existe</p>';
+            echo '<p>Categoría eliminada correctamente.</p>';
             break;
         case 'has_dishes':
-            echo '<p>No se puede eliminar la categoría porque tiene platos asociados</p>';
+            echo '<p>No se puede eliminar la categoría porque tiene platos asociados.</p>';
             break;
+        case 'empty':
+            echo '<p>La categoría no existe.</p>';
+            break;
+        case 'error':
         default:
-            echo '<p>No se pudo eliminar la categoría</p>';
+            echo '<p>No se pudo eliminar la categoría.</p>';
+            break;
     }
     ?>
     <br>
     <a href="../categories.php">Volver</a>
 </body>
+
 </html> 
