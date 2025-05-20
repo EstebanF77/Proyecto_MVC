@@ -9,7 +9,7 @@ abstract class Model{
     abstract function delete();
 
     public function get($nameProp){
-        $this->{$nameProp};
+        return $this->{$nameProp};
     }
 
     public function set($nameProp, $value)

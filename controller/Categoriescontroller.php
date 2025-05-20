@@ -15,6 +15,13 @@ class CategoriesController
         return $categories;
     }
 
+    public function getCategoryById($id)
+    {
+        $model = new Categories();
+        $model->set('id', $id);
+        return $model->find();
+    }
+
     function saveNewCategorie($request){
         $model = new Categories();
         $model->set('nombre', $request['name']);

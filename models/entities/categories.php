@@ -1,74 +1,69 @@
 <?php
 namespace App\models\entities;
 
+use App\models\drivers\ConexDB;
 
-use App\models\drivers\conexDB;
-
-class Categories extends Model{
+class Categories extends Model {
     protected $id = null;
     protected $nombre = '';
 
-
     public function all() {
-        $conexDB = new conexDB();
-        $sql = "select * from categorias";
+        $conexDB = new ConexDB();
+        $sql = "SELECT * FROM categories";
         $res = $conexDB->exeSQL($sql);
-        $personas = [];
+        $categories = [];
 
         if ($res->num_rows > 0) {
             while ($row = $res->fetch_assoc()) {
                 $categoria = new Categories();
                 $categoria->set('id', $row['id']);
-                $categoria->set('nombre', $row['nombre']);
-                array_push($categorias, $categoria);
+                $categoria->set('nombre', $row['name']);
+                array_push($categories, $categoria);
             }
         }
 
         $conexDB->close();
-        return $personas;
+        return $categories;
     }
 
     public function save() {
         $conexDB = new ConexDB();
-        $sql = "INSERT INTO categoria (nombre) VALUES ('" .
-        $this->nombre .")";
+        $sql = "INSERT INTO categories (name) VALUES ('" . $this->nombre . "')";
         $res = $conexDB->exeSQL($sql);
         $conexDB->close();
         return $res;
     }
 
     public function update() {
-        $conexDb = new ConexDB();
-        $sql = "update personas set ";
-        $sql .= "nombre='" . $this->nombre . "',";
-        $sql .= " where id=" . $this->id;
-        $res = $conexDb->exeSQL($sql);
-        $conexDb->close();
+        $conexDB = new ConexDB();
+        $sql = "UPDATE categories SET name='" . $this->nombre . "' WHERE id=" . $this->id;  
+        $res = $conexDB->exeSQL($sql);
+        $conexDB->close();
         return $res;
     }
 
     public function delete() {
-        $conexDb = new ConexDB();
-        $sql = "delete from categories where id=" . $this->id;
-        $res = $conexDb->exeSQL($sql);
-        $conexDb->close();
+        $conexDB = new ConexDB();
+        $sql = "DELETE FROM categories WHERE id=" . $this->id;
+        $res = $conexDB->exeSQL($sql);
+        $conexDB->close();
         return $res;
     }
 
     public function find(){
-        $conexDb = new ConexDB();
-        $sql = "select * from personas where id=" . $this->id;
-        $res = $conexDb->exeSQL($sql);
-        $categories = null;
-        if($res->num_rows>0){
+        $conexDB = new ConexDB();
+        $sql = "SELECT * FROM categories WHERE id=" . $this->id;
+        $res = $conexDB->exeSQL($sql);
+        $category = null;
+        if($res->num_rows > 0){
             while($row = $res->fetch_assoc()){
-                $categories = new Categories();
-                $categories->set('id', $row['id']);
-                $categories->set('nombre', $row['nombre']);
+                $category = new Categories();
+                $category->set('id', $row['id']);
+                $category->set('name', $row['name']);
                 break;
             }
         }
-        $conexDb->close();      
-        return $categories;        
+        $conexDB->close();      
+        return $category;        
     }
 }
