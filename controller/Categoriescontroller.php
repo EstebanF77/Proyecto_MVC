@@ -15,27 +15,30 @@ class CategoriesController
         return $categories;
     }
 
+    public function getCategoryById($id)
+    {
+        $model = new Categories();
+        $model->set('id', $id);
+        return $model->find();
+    }
+
     function saveNewCategorie($request){
         $model = new Categories();
-        $model->set('nombre', $request['name']);
+        $model->set('name', $request['name']);
         $res = $model->save();
         return $res ? 'yes' : 'not';
     }
     function updateCategorie ($request){
         $model = new Categories();
         $model->set('id', $request['idCategorie']);
-        $model->set('nombre', $request['name']);
+        $model->set('name', $request['name']);
         $res = $model->update();
         return $res ? 'yes' : 'not';
     }
 
-     public function removeCategorie($id){
+    public function removeCategorie($id){
         $model = new Categories();
-         $model->set('id', $id);
-        if(empty($model->find())){
-            return "empty";
-        }
-        $res =  $model->delete();
-        return $res ? 'yes' : 'not';
+        $model->set('id', $id);
+        return $model->delete();
     }
 }

@@ -9,9 +9,9 @@ $controller = new CategoriesController();
 
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    header('location: ../dishes.php');
+    header('location: ../categories.php');
 }
-$res = empty($_POST['idDish'])
+$res = empty($_POST['idCategorie'])
     ? $controller->saveNewCategorie($_POST)
     : $controller->updateCategorie($_POST);
 ?>
@@ -31,8 +31,9 @@ $res = empty($_POST['idDish'])
     }
     ?>
     <br>
-    <a href="../formCategories.php">Volver</a>
+    <a href="../categories.php">Volver</a>
 </body>
+
 
 
 ?>

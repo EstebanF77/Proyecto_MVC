@@ -7,33 +7,35 @@ include '../../controller/DishesController.php';
 use app\controller\DishesController;
 
 $controller = new DishesController();
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header('Location: ../formDishes.php');
-    exit;
-}
-
-$id = $_POST['id'] ?? null;
-
-$res = empty($id)
-    ? $controller->saveNewDish($_POST)
-    : $controller->updateDish($_POST);
+$res = $controller->deleteDish($_GET['id'] ?? null);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Resultado operación</title>
+    <title>Eliminar plato</title>
 </head>
+
 <body>
     <h1>Resultado de la operación</h1>
-    <?php if ($res === 'yes'): ?>
-        <p>Datos guardados correctamente.</p>
-    <?php else: ?>
-        <p>No se pudo guardar los datos.</p>
-    <?php endif; ?>
+    <?php
+    switch ($res) {
+    case 'yes':
+        echo '<p >Plato eliminado correctamente.</p>';
+        break;
+    case 'in_use':
+        echo '<p >No se puede eliminar el plato porque está registrado en órdenes.</p>';
+        break;
+    case 'error':
+    default:
+        echo '<p >No se pudo eliminar el plato.</p>';
+        break;
+    }
+    ?>
     <br>
     <a href="../listDishes.php">Volver</a>
 </body>
+
 </html>
