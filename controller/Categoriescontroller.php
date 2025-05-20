@@ -50,7 +50,7 @@ class CategoriesController
         $dishes = $dishModel->all();
         foreach($dishes as $dish) {
             if($dish->get('idCategory') == $id) {
-                return "has_dishes"; // No se puede eliminar porque tiene platos asociados
+                return "has_categories"; // No se puede eliminar porque tiene platos asociados
             }
         }
 
