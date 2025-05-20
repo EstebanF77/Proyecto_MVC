@@ -1,9 +1,10 @@
 <?php
 include '../models\drivers\conexDB.php';
 include '../models\entities\model.php';
+include '../models/entities/categories.php';
 include '../models\entities\dish.php';
 include '../controller/dishesController.php';
-include '../controller/CategoriesController.php';
+include '../controller/categoriesController.php';
 
 use app\controller\DishesController;
 use app\controller\CategoriesController;
@@ -31,7 +32,7 @@ if ($idDish) {
 
 <h1><?= $dish ? 'Editar plato' : 'Registrar plato' ?></h1>
 
-<form action="../actions/registerDishes.php" method="post">
+<form action="actions/registerDishes.php" method="post">
     <?php if ($dish): ?>
         <input type="hidden" name="id" value="<?= $dish->get('id') ?>">
     <?php endif; ?>
@@ -48,7 +49,7 @@ if ($idDish) {
             <?php foreach ($categories as $category): ?>
                 <option value="<?= $category->get('id') ?>" 
                     <?= $dish && $dish->get('idCategory') == $category->get('id') ? 'selected' : '' ?>>
-                    <?= $category->get('name') ?>
+                    <?= $category->get('nombre') ?>
                 </option>
             <?php endforeach; ?>
         </select>
@@ -64,6 +65,7 @@ if ($idDish) {
         <button type="submit"><?= $dish ? 'Actualizar' : 'Registrar' ?></button>
     </div>
 </form>
-
+ 
+<a href="listDishes.php">Volver</a>
 </body>
 </html>

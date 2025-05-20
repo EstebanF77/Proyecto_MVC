@@ -34,6 +34,6 @@ $res = empty($id)
         <p>No se pudo guardar los datos.</p>
     <?php endif; ?>
     <br>
-    <a href="../formDishes.php">Volver</a>
+    <a href="../listDishes.php">Volver</a>
 </body>
 </html>

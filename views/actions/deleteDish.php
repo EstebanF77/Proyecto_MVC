@@ -1,8 +1,8 @@
 <?php
-require_once '../../models/drivers/conexDB.php';
-require_once '../../models/entities/model.php';
-require_once '../../models/entities/dishes.php';
-require_once '../../controller/DishesController.php';
+include '../../models/drivers/conexDB.php';
+include '../../models/entities/model.php';
+include '../../models/entities/dish.php';
+include '../../controller/DishesController.php';
 
 use app\controller\DishesController;
 
@@ -16,7 +16,6 @@ $res = $controller->deleteDish($_GET['id'] ?? null);
 <head>
     <meta charset="UTF-8">
     <title>Eliminar plato</title>
-    <link rel="stylesheet" href="../css/acciones.css">
 </head>
 
 <body>
@@ -24,14 +23,14 @@ $res = $controller->deleteDish($_GET['id'] ?? null);
     <?php
     switch ($res) {
     case 'yes':
-        echo '<p class="msg-ok">Plato eliminado correctamente.</p>';
+        echo '<p >Plato eliminado correctamente.</p>';
         break;
     case 'in_use':
-        echo '<p class="msg-error">No se puede eliminar el plato porque está registrado en órdenes.</p>';
+        echo '<p >No se puede eliminar el plato porque está registrado en órdenes.</p>';
         break;
     case 'error':
     default:
-        echo '<p class="msg-error">No se pudo eliminar el plato.</p>';
+        echo '<p >No se pudo eliminar el plato.</p>';
         break;
     }
     ?>
