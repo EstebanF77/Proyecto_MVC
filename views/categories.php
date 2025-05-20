@@ -28,7 +28,7 @@ $categories = $controller->getAllCategories();
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table border="1" cellpadding="6" class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Nombre</th>
