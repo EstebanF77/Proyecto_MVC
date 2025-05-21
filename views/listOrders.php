@@ -49,6 +49,7 @@ $orders = $orderController->getAll();
                             </span>
                         </td>
                         <td>
+                             <a href="viewOrder.php?id=<?= $order->get('id') ?>" class="btn btn-primary">Ver detalles</a>
                             <?php if (!$order->get('isCancelled')): ?>
                                 <a href="actions/cancelOrder.php?id=<?= $order->get('id') ?>" class="btn btn-danger">Anular</a>
                             <?php else: ?>
