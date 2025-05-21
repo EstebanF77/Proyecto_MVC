@@ -11,5 +11,6 @@
     <a href="views\listTables.php">Mesas</a>
     <a href="views/listOrders.php">Órdenes</a>
     <a href="views\reportOrders.php">repoten al gekko</a>
+    <a href="views\reportCancelledOrders.php">banearon a gekko</a>
 </body>
 </html>

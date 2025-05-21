@@ -131,5 +131,46 @@ class Order extends Model {
     $conexDb->close();
     return $ranking;
 }
+public function getCancelledOrdersBetweenDates($start, $end)
+{
+    $conexDb = new ConexDB();
+    $sql = "SELECT * FROM orders 
+            WHERE isCancelled = 1 
+            AND dateOrder BETWEEN '$start' AND '$end'";
+    
+    $res = $conexDb->exeSQL($sql);
+    $orders = [];
+
+    if ($res && $res->num_rows > 0) {
+        while ($row = $res->fetch_assoc()) {
+            $order = new Order();
+            $order->set('id', $row['id']);
+            $order->set('dateOrder', $row['dateOrder']);
+            $order->set('idTable', $row['idTable']);
+            $order->set('total', $row['total']);
+            $orders[] = $order;
+        }
+    }
+
+    $conexDb->close();
+    return $orders;
+}
+public function getCancelledTotalBetweenDates($start, $end)
+{
+    $conexDb = new ConexDB();
+    $sql = "SELECT SUM(total) AS total FROM orders 
+            WHERE isCancelled = 1 
+            AND dateOrder BETWEEN '$start' AND '$end'";
+    
+    $res = $conexDb->exeSQL($sql);
+    $total = 0;
+
+    if ($res && $row = $res->fetch_assoc()) {
+        $total = $row['total'] ?? 0;
+    }
+
+    $conexDb->close();
+    return $total;
+}
 
 } 
