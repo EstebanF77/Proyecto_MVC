@@ -60,12 +60,6 @@ class OrderController {
         return $this->order->getTotalBetweenDates($start, $end);
     }
 
-<<<<<<< HEAD
-    public function getRankingBetween($start, $end)
-    {
-        return $this->order->getMostSoldDishesBetweenDates($start, $end);
-    }
-=======
 public function getRankingBetween($start, $end)
 {
     $order = new Order();
@@ -83,20 +77,12 @@ public function getCancelledTotalBetween($start, $end)
     return $order->getCancelledTotalBetweenDates($start, $end);
 }
 
-public function getById($id)
-{
-    $order = new Order();
-    return $order->findWithDetails($id);
-}
-
->>>>>>> 21a31866f0806917b74461bb990832a1691a0e4c
-
-    public function getById($id) {
-        $this->order->set('id', $id);
-        $order = $this->order->find();
-        if ($order) {
-            $order->details = $this->orderDetail->findByOrder($id);
-        }
-        return $order;
+public function getById($id) {
+    $this->order->set('id', $id);
+    $order = $this->order->find();
+    if ($order) {
+        $order->details = $this->orderDetail->findByOrder($id);
     }
+    return $order;
+}
 } 
