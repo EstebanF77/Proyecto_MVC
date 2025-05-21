@@ -141,6 +141,86 @@ class Order extends Model {
     $conexDb->close();
     return $ranking;
 }
+public function getCancelledOrdersBetweenDates($start, $end)
+{
+    $conexDb = new ConexDB();
+    $sql = "SELECT * FROM orders 
+            WHERE isCancelled = 1 
+            AND dateOrder BETWEEN '$start' AND '$end'";
+    
+    $res = $conexDb->exeSQL($sql);
+    $orders = [];
+
+    if ($res && $res->num_rows > 0) {
+        while ($row = $res->fetch_assoc()) {
+            $order = new Order();
+            $order->set('id', $row['id']);
+            $order->set('dateOrder', $row['dateOrder']);
+            $order->set('idTable', $row['idTable']);
+            $order->set('total', $row['total']);
+            $orders[] = $order;
+        }
+    }
+
+    $conexDb->close();
+    return $orders;
+}
+public function getCancelledTotalBetweenDates($start, $end)
+{
+    $conexDb = new ConexDB();
+    $sql = "SELECT SUM(total) AS total FROM orders 
+            WHERE isCancelled = 1 
+            AND dateOrder BETWEEN '$start' AND '$end'";
+    
+    $res = $conexDb->exeSQL($sql);
+    $total = 0;
+
+    if ($res && $row = $res->fetch_assoc()) {
+        $total = $row['total'] ?? 0;
+    }
+
+    $conexDb->close();
+    return $total;
+}
+
+public function findWithDetails($id)
+{
+    $conexDB = new ConexDB();
+
+    // Obtener orden principal
+    $sql = "SELECT * FROM orders WHERE id = $id";
+    $res = $conexDB->exeSQL($sql);
+
+    if ($res && $res->num_rows > 0) {
+        $row = $res->fetch_assoc();
+        $this->set('id', $row['id']);
+        $this->set('dateOrder', $row['dateOrder']);
+        $this->set('total', $row['total']);
+        $this->set('idTable', $row['idTable']);
+        $this->set('isCancelled', $row['isCancelled']);
+
+        // Obtener detalles de la orden
+        $sqlDetails = "SELECT od.quantity, od.price, d.description 
+                       FROM order_details od 
+                       JOIN dishes d ON d.id = od.idDish 
+                       WHERE od.idOrder = $id";
+
+        $resDetails = $conexDB->exeSQL($sqlDetails);
+        $details = [];
+
+        if ($resDetails && $resDetails->num_rows > 0) {
+            while ($detail = $resDetails->fetch_assoc()) {
+                $details[] = $detail;
+            }
+        }
+
+        $this->details = $details; // propiedad dinámica (no definida en atributos)
+    }
+
+    $conexDB->close();
+    return $this;
+}
+
 
     public function find() {
         $conexDB = new ConexDB();

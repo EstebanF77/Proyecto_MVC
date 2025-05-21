@@ -6,8 +6,7 @@ require_once __DIR__ . '/../models/entities/orderDetail.php';
 
 use App\models\entities\Order;
 use App\models\entities\OrderDetail;
-use App\models\entities\Dish;
-use App\models\entities\Table;
+
 
 class OrderController {
     private $order;
@@ -61,10 +60,36 @@ class OrderController {
         return $this->order->getTotalBetweenDates($start, $end);
     }
 
+<<<<<<< HEAD
     public function getRankingBetween($start, $end)
     {
         return $this->order->getMostSoldDishesBetweenDates($start, $end);
     }
+=======
+public function getRankingBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getMostSoldDishesBetweenDates($start, $end);
+}
+public function getCancelledOrdersBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getCancelledOrdersBetweenDates($start, $end);
+}
+
+public function getCancelledTotalBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getCancelledTotalBetweenDates($start, $end);
+}
+
+public function getById($id)
+{
+    $order = new Order();
+    return $order->findWithDetails($id);
+}
+
+>>>>>>> 21a31866f0806917b74461bb990832a1691a0e4c
 
     public function getById($id) {
         $this->order->set('id', $id);
