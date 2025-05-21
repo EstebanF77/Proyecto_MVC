@@ -1,23 +1,44 @@
 <?php
 require_once '../../controller/OrderController.php';
 
-$orderController = new OrderController();
-
-$data = [
-    'dateOrder' => $_POST['dateOrder'],
-    'total' => $_POST['total'],
-    'idTable' => $_POST['idTable']
-];
-
-$details = [];
-foreach ($_POST['idDish'] as $i => $idDish) {
-    $details[] = [
-        'idDish' => $idDish,
-        'quantity' => $_POST['quantity'][$i],
-        'price' => $_POST['price'][$i]
-    ];
+// Validate required fields
+if (!isset($_POST['dateOrder']) || !isset($_POST['idTable']) || !isset($_POST['idDish']) || !isset($_POST['quantity'])) {
+    die("Error: Faltan campos requeridos");
 }
 
-$orderController->create($data, $details);
-header('Location: ../listOrders.php');
-exit; 
+// Calculate total
+$total = 0;
+$orderDetails = [];
+
+foreach ($_POST['idDish'] as $index => $dishId) {
+    if (isset($_POST['quantity'][$index])) {
+        $quantity = (int)$_POST['quantity'][$index];
+        $price = (float)$_POST['price'][$index];
+        $total += $quantity * $price;
+        
+        $orderDetails[] = [
+            'idDish' => $dishId,
+            'quantity' => $quantity,
+            'price' => $price
+        ];
+    }
+}
+
+// Prepare order data
+$orderData = [
+    'dateOrder' => $_POST['dateOrder'],
+    'idTable' => $_POST['idTable'],
+    'total' => $total
+];
+
+// Create order using controller
+$orderController = new OrderController();
+$result = $orderController->create($orderData, $orderDetails);
+
+if ($result) {
+    header('Location: ../listOrders.php');
+    exit;
+} else {
+    echo "Error al registrar la orden";
+}
+?> 

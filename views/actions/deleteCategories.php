@@ -8,6 +8,22 @@ use app\controller\CategoriesController;
 
 $controller = new CategoriesController();
 $res = $controller->removeCategorie($_GET['id'] ?? null);
+
+switch ($res) {
+    case 'yes':
+        $message = 'Categoría eliminada correctamente.';
+        $type = 'success';
+        break;
+    case 'has_dishes':
+        $message = 'No se puede eliminar esta categoría porque tiene platos asociados.';
+        $type = 'error';
+        break;
+    case 'error':
+    default:
+        $message = 'No se pudo eliminar la categoría.';
+        $type = 'error';
+        break;
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,23 +36,9 @@ $res = $controller->removeCategorie($_GET['id'] ?? null);
 
 <body>
     <h1>Resultado de la operación</h1>
-    <?php
-    switch ($res) {
-        case 'yes':
-            echo '<p>Categoría eliminada correctamente.</p>';
-            break;
-        case 'has_dishes':
-            echo '<p>No se puede eliminar la categoría porque tiene platos asociados.</p>';
-            break;
-        case 'empty':
-            echo '<p>La categoría no existe.</p>';
-            break;
-        case 'error':
-        default:
-            echo '<p>No se pudo eliminar la categoría.</p>';
-            break;
-    }
-    ?>
+    <p style="color: <?= $type === 'success' ? 'green' : 'red' ?>">
+        <?= $message ?>
+    </p>
     <br>
     <a href="../categories.php">Volver</a>
 </body>

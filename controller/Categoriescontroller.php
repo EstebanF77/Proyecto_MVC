@@ -7,7 +7,12 @@ use App\models\entities\Table;
 
 class CategoriesController
 {
-    
+    private $categories;
+
+    public function __construct() {
+        $this->categories = new Categories();
+    }
+
     public function getAllCategories() 
     {
         $model = new Categories();       
@@ -37,8 +42,14 @@ class CategoriesController
     }
 
     public function removeCategorie($id){
-        $model = new Categories();
-        $model->set('id', $id);
-        return $model->delete();
+        // Verificar si hay platos asociados
+        $hasDishes = $this->categories->hasAssociatedDishes($id);
+        
+        if ($hasDishes) {
+            return 'has_dishes';
+        }
+        
+        $this->categories->set('id', $id);
+        return $this->categories->delete() ? 'yes' : 'error';
     }
 }

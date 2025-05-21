@@ -66,4 +66,13 @@ class Categories extends Model {
         $conexDB->close();      
         return $category;        
     }
+
+    public function hasAssociatedDishes($categoryId) {
+        $conexDB = new ConexDB();
+        $sql = "SELECT COUNT(*) as count FROM dishes WHERE idCategory = " . $categoryId;
+        $res = $conexDB->exeSQL($sql);
+        $row = $res->fetch_assoc();
+        $conexDB->close();
+        return $row['count'] > 0;
+    }
 }

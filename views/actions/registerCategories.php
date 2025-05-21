@@ -36,4 +36,3 @@ $res = empty($_POST['idCategorie'])
 
 
 
-?>
