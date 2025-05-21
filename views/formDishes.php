@@ -57,7 +57,7 @@ if ($idDish) {
 
     <div>
         <label for="unitPrice">Precio unitario</label>
-        <input type="number" id="unitPrice" name="unitPrice" min="0" required
+        <input type="number" id="unitPrice" name="unitPrice" min="1" required
                value="<?= $dish ? $dish->get('price') : '' ?>">
     </div>
 

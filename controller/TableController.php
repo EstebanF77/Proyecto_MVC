@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/entities/table.php';
+
 
 use App\models\entities\Table;
 

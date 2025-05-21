@@ -1,8 +1,6 @@
 <?php
-require_once __DIR__ . '/../models/entities/order.php';
-require_once __DIR__ . '/../models/entities/order_detail.php';
-require_once __DIR__ . '/../models/entities/dish.php';
-require_once __DIR__ . '/../models/entities/table.php';
+namespace app\controller;
+
 
 use App\models\entities\Order;
 use App\models\entities\OrderDetail;
@@ -39,4 +37,23 @@ class OrderController {
         $order->set('id', $id);
         return $order->cancel();
     }
+
+    public function getOrdersBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getOrdersBetweenDates($start, $end);
+}
+
+public function getTotalBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getTotalBetweenDates($start, $end);
+}
+
+public function getRankingBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getMostSoldDishesBetweenDates($start, $end);
+}
+
 } 

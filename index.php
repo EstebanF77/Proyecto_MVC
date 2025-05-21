@@ -10,5 +10,6 @@
     <a href="views\categories.php">Categorias</a>
     <a href="views\listTables.php">Mesas</a>
     <a href="views/listOrders.php">Órdenes</a>
+    <a href="views\reportOrders.php">repoten al gekko</a>
 </body>
 </html>
