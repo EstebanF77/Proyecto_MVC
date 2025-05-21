@@ -75,4 +75,5 @@ class OrderDetail extends Model {
         $conexDb->close();
         return $details;
     }
-}
+    
+} 

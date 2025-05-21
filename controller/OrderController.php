@@ -66,4 +66,11 @@ public function getCancelledTotalBetween($start, $end)
     return $order->getCancelledTotalBetweenDates($start, $end);
 }
 
+public function getById($id)
+{
+    $order = new Order();
+    return $order->findWithDetails($id);
+}
+
+
 } 
