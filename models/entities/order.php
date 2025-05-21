@@ -13,14 +13,24 @@ class Order extends Model {
     protected $total = 0;
     protected $idTable = null;
     protected $isCancelled = 0;
+    public $details = [];
 
     public function save() {
         $conexDB = new ConexDB();
-        $sql = "INSERT INTO orders (dateOrder, total, idTable, isCancelled) VALUES (\n            '{$this->dateOrder}', {$this->total}, {$this->idTable}, {$this->isCancelled}\n        )";
+        $sql = "INSERT INTO orders (dateOrder, idTable, total, isCancelled) 
+                VALUES ('" . $this->dateOrder . "', " . $this->idTable . ", " . 
+                $this->total . ", 0)";
         $res = $conexDB->exeSQL($sql);
-        $orderId = $conexDB->getConexion()->insert_id;
+        $lastId = $conexDB->getLastId();
         $conexDB->close();
-        return $orderId;
+        return $lastId;
+    }
+
+    public function getLastId() {
+        $conexDB = new ConexDB();
+        $lastId = $conexDB->getLastId();
+        $conexDB->close();
+        return $lastId;
     }
 
     public function cancel() {
@@ -211,5 +221,23 @@ public function findWithDetails($id)
     return $this;
 }
 
+
+    public function find() {
+        $conexDB = new ConexDB();
+        $sql = "SELECT * FROM orders WHERE id = " . $this->id;
+        $res = $conexDB->exeSQL($sql);
+        $order = null;
+        if ($res->num_rows > 0) {
+            $row = $res->fetch_assoc();
+            $order = new Order();
+            $order->set('id', $row['id']);
+            $order->set('dateOrder', $row['dateOrder']);
+            $order->set('total', $row['total']);
+            $order->set('idTable', $row['idTable']);
+            $order->set('isCancelled', $row['isCancelled']);
+        }
+        $conexDB->close();
+        return $order;
+    }
 
 } 

@@ -1,11 +1,29 @@
 <?php
-include '../models/drivers/conexDB.php';
-include '../models/entities/model.php';
-include '../models/entities/order.php';
-include '../controller/OrderController.php';
+require_once '../../models/drivers/conexDB.php';
+require_once '../../models/entities/model.php';
+require_once '../../models/entities/order.php';
+require_once '../../controller/OrderController.php';
 
-use App\controller\OrderController;
-$orderController = new OrderController();
-$res = $orderController->cancel($_GET['id'] ?? null);
-header('Location: ../listOrders.php');
-exit; 
+use app\controller\OrderController;
+
+$controller = new OrderController();
+$res = $controller->cancel($_GET['id'] ?? null);
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Anular Orden</title>
+</head>
+<body>
+    <h1>Resultado de la operación</h1>
+    <?php if ($res): ?>
+        <p>Orden anulada correctamente.</p>
+    <?php else: ?>
+        <p>No se pudo anular la orden.</p>
+    <?php endif; ?>
+    <br>
+    <a href="../listOrders.php">Volver</a>
+</body>
+</html> 
