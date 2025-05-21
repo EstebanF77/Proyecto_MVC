@@ -4,8 +4,7 @@ namespace app\controller;
 
 use App\models\entities\Order;
 use App\models\entities\OrderDetail;
-use App\models\entities\Dish;
-use App\models\entities\Table;
+
 
 class OrderController {
     public function getAll() {
@@ -54,6 +53,17 @@ public function getRankingBetween($start, $end)
 {
     $order = new Order();
     return $order->getMostSoldDishesBetweenDates($start, $end);
+}
+public function getCancelledOrdersBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getCancelledOrdersBetweenDates($start, $end);
+}
+
+public function getCancelledTotalBetween($start, $end)
+{
+    $order = new Order();
+    return $order->getCancelledTotalBetweenDates($start, $end);
 }
 
 public function getById($id)
