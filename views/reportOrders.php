@@ -92,6 +92,7 @@ if ($startDate && $endDate) {
             </table>
         <?php endif; ?>
         <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
+        <a href="reportCancelledOrders.php" class="btn btn-secondary">Reporte de Órdenes Anuladas</a>
     </div>
 </body>
 </html>

@@ -17,6 +17,7 @@
             <a href="views/listTables.php" class="btn btn-primary">Mesas</a>
             <a href="views/listOrders.php" class="btn btn-primary">Órdenes</a>
             <a href="views/reportOrders.php" class="btn btn-primary">Reportes</a>
+            
         </div>
     </div>
 </body>
