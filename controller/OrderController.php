@@ -56,4 +56,11 @@ public function getRankingBetween($start, $end)
     return $order->getMostSoldDishesBetweenDates($start, $end);
 }
 
+public function getById($id)
+{
+    $order = new Order();
+    return $order->findWithDetails($id);
+}
+
+
 } 

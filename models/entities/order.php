@@ -131,5 +131,43 @@ class Order extends Model {
     $conexDb->close();
     return $ranking;
 }
+public function findWithDetails($id)
+{
+    $conexDB = new ConexDB();
+
+    // Obtener orden principal
+    $sql = "SELECT * FROM orders WHERE id = $id";
+    $res = $conexDB->exeSQL($sql);
+
+    if ($res && $res->num_rows > 0) {
+        $row = $res->fetch_assoc();
+        $this->set('id', $row['id']);
+        $this->set('dateOrder', $row['dateOrder']);
+        $this->set('total', $row['total']);
+        $this->set('idTable', $row['idTable']);
+        $this->set('isCancelled', $row['isCancelled']);
+
+        // Obtener detalles de la orden
+        $sqlDetails = "SELECT od.quantity, od.price, d.description 
+                       FROM order_details od 
+                       JOIN dishes d ON d.id = od.idDish 
+                       WHERE od.idOrder = $id";
+
+        $resDetails = $conexDB->exeSQL($sqlDetails);
+        $details = [];
+
+        if ($resDetails && $resDetails->num_rows > 0) {
+            while ($detail = $resDetails->fetch_assoc()) {
+                $details[] = $detail;
+            }
+        }
+
+        $this->details = $details; // propiedad dinámica (no definida en atributos)
+    }
+
+    $conexDB->close();
+    return $this;
+}
+
 
 } 

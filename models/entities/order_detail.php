@@ -32,4 +32,5 @@ class OrderDetail extends Model {
         // No se permite eliminar detalles de orden
         return false;
     }
+    
 } 
