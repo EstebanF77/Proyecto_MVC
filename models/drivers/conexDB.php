@@ -31,6 +31,9 @@ class ConexDB {
         return $this->conex->query($sql);
     }
 
+    public function getLastId() {
+        return $this->conex->insert_id;
+    }
 
 }
 

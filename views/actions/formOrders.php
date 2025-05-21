@@ -8,27 +8,41 @@ use App\models\entities\Dish;
 $tables = (new Table())->all();
 $dishes = (new Dish())->all();
 
-// Handle form submission
+$row_count = 1;
+$saved_values = [
+    'dateOrder' => '',
+    'idTable' => '',
+    'idDish' => [],
+    'quantity' => [],
+    'price' => []
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $row_count = isset($_POST['row_count']) ? (int)$_POST['row_count'] : 1;
+    $saved_values = [
+        'dateOrder' => $_POST['dateOrder'] ?? '',
+        'idTable' => $_POST['idTable'] ?? '',
+        'idDish' => $_POST['idDish'] ?? [],
+        'quantity' => $_POST['quantity'] ?? [],
+        'price' => $_POST['price'] ?? []
+    ];
+
     if (isset($_POST['add_row'])) {
-        // Add a new row to the form
-        $row_count = isset($_POST['row_count']) ? $_POST['row_count'] + 1 : 1;
-    } else {
-        // Process the final form submission
+        $row_count++;
+    } elseif (isset($_POST['submit_order'])) {
+        // Aquí iría el guardado real en la base de datos
         header('Location: registrerOrders.php');
         exit;
     }
-} else {
-    $row_count = 1;
 }
 
-// Calculate total if form was submitted
+// Calcular total
 $total = 0;
-if (isset($_POST['idDish']) && isset($_POST['quantity'])) {
-    foreach ($_POST['idDish'] as $index => $dishId) {
+if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
+    foreach ($saved_values['idDish'] as $index => $dishId) {
         foreach ($dishes as $dish) {
             if ($dish->get('id') == $dishId) {
-                $quantity = isset($_POST['quantity'][$index]) ? (int)$_POST['quantity'][$index] : 0;
+                $quantity = isset($saved_values['quantity'][$index]) ? (int)$saved_values['quantity'][$index] : 0;
                 $total += $dish->get('price') * $quantity;
                 break;
             }
@@ -66,22 +80,19 @@ if (isset($_POST['idDish']) && isset($_POST['quantity'])) {
 </head>
 <body>
     <h1>Registrar Nueva Orden</h1>
-    
-    <!-- Form for adding rows -->
-    <form method="POST" style="display: inline;">
-        <input type="hidden" name="row_count" value="<?= $row_count ?>">
-        <button type="submit" name="add_row">Agregar Plato</button>
-    </form>
 
-    <!-- Main form for order submission -->
-    <form action="registrerOrders.php" method="POST">
+    <form method="POST">
+        <input type="hidden" name="row_count" value="<?= $row_count ?>">
+
         <label>Fecha:</label>
-        <input type="datetime-local" name="dateOrder" required><br>
+        <input type="datetime-local" name="dateOrder" value="<?= htmlspecialchars($saved_values['dateOrder']) ?>" required><br>
         
         <label>Mesa:</label>
         <select name="idTable" required>
             <?php foreach ($tables as $table): ?>
-                <option value="<?= $table->get('id') ?>"><?= $table->get('name') ?></option>
+                <option value="<?= $table->get('id') ?>" <?= $saved_values['idTable'] == $table->get('id') ? 'selected' : '' ?>>
+                    <?= $table->get('name') ?>
+                </option>
             <?php endforeach; ?>
         </select><br>
 
@@ -100,24 +111,28 @@ if (isset($_POST['idDish']) && isset($_POST['quantity'])) {
                 <td>
                     <select name="idDish[]" required onchange="updatePrice(this)">
                         <?php foreach ($dishes as $dish): ?>
-                            <option value="<?= $dish->get('id') ?>" data-price="<?= $dish->get('price') ?>">
+                            <option value="<?= $dish->get('id') ?>" 
+                                data-price="<?= $dish->get('price') ?>"
+                                <?= isset($saved_values['idDish'][$i]) && $saved_values['idDish'][$i] == $dish->get('id') ? 'selected' : '' ?>>
                                 <?= $dish->get('description') ?> (<?= $dish->get('price') ?>)
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </td>
                 <td>
-                    <input type="number" name="quantity[]" min="1" value="1" required onchange="updateTotal()">
+                    <input type="number" name="quantity[]" min="1" value="<?= $saved_values['quantity'][$i] ?? 1 ?>" required onchange="updateTotal()">
                 </td>
                 <td>
-                    <input type="text" name="price[]" value="<?= $dishes[0]->get('price') ?>" readonly>
+                    <input type="text" name="price[]" value="<?= $saved_values['price'][$i] ?? $dishes[0]->get('price') ?>" readonly>
                 </td>
             </tr>
             <?php endfor; ?>
         </table>
-        
-        <button type="submit">Registrar Orden</button>
+
+        <button type="submit" name="add_row">Agregar Plato</button>
+        <button type="submit" name="submit_order">Registrar Orden</button>
     </form>
+
     <a href="../listOrders.php">Volver</a>
 </body>
-</html> 
+</html>
