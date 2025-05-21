@@ -26,66 +26,72 @@ if ($startDate && $endDate) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Órdenes</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Reporte de Órdenes</h1>
+    <div class="container">
+        <div class="header">
+            <h1>Reporte de Órdenes</h1>
+        </div>
 
-    <!-- Formulario de filtro -->
-    <form method="get" action="">
-        <label for="start">Fecha inicio:</label>
-        <input type="date" name="start" id="start" value="<?= $startDate ?>" required>
+        <!-- Formulario de filtro -->
+        <form method="get" action="">
+            <label for="start">Fecha inicio:</label>
+            <input type="date" name="start" id="start" value="<?= $startDate ?>" required>
 
-        <label for="end">Fecha fin:</label>
-        <input type="date" name="end" id="end" value="<?= $endDate ?>" required>
+            <label for="end">Fecha fin:</label>
+            <input type="date" name="end" id="end" value="<?= $endDate ?>" required>
 
-        <button type="submit">Filtrar</button>
-    </form>
+            <button type="submit">Filtrar</button>
+        </form>
 
-    <?php if ($startDate && $endDate): ?>
-        <h2>Órdenes no anuladas entre <?= $startDate ?> y <?= $endDate ?></h2>
+        <?php if ($startDate && $endDate): ?>
+            <h2>Órdenes no anuladas entre <?= $startDate ?> y <?= $endDate ?></h2>
 
-        <table border="1" cellpadding="6">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>ID Mesa</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($orders as $order): ?>
+            <table>
+                <thead>
                     <tr>
-                        <td><?= $order->get('id') ?></td>
-                        <td><?= $order->get('dateOrder') ?></td>
-                        <td><?= $order->get('idTable') ?></td>
-                        <td>$<?= number_format($order->get('total'), 2) ?></td>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>ID Mesa</th>
+                        <th>Total</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($orders as $order): ?>
+                        <tr>
+                            <td><?= $order->get('id') ?></td>
+                            <td><?= $order->get('dateOrder') ?></td>
+                            <td><?= $order->get('idTable') ?></td>
+                            <td>$<?= number_format($order->get('total'), 2) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-        <h3>Total recaudado: $<?= number_format($total, 2) ?></h3>
+            <h3>Total recaudado: $<?= number_format($total, 2) ?></h3>
 
-        <h2>Ranking de Platos Más Vendidos</h2>
-        <table border="1" cellpadding="6">
-            <thead>
-                <tr>
-                    <th>Plato</th>
-                    <th>Cantidad Vendida</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($ranking as $item): ?>
+            <h2>Ranking de Platos Más Vendidos</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td><?= $item['description'] ?></td>
-                        <td><?= $item['cantidad'] ?></td>
+                        <th>Plato</th>
+                        <th>Cantidad Vendida</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
-      <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
+                </thead>
+                <tbody>
+                    <?php foreach ($ranking as $item): ?>
+                        <tr>
+                            <td><?= $item['description'] ?></td>
+                            <td><?= $item['cantidad'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
+    </div>
 </body>
 </html>

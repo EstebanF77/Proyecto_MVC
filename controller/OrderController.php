@@ -1,53 +1,64 @@
 <?php
 namespace app\controller;
 
+require_once __DIR__ . '/../models/entities/order.php';
+require_once __DIR__ . '/../models/entities/orderDetail.php';
 
 use App\models\entities\Order;
 use App\models\entities\OrderDetail;
 
 
 class OrderController {
+    private $order;
+    private $orderDetail;
+
+    public function __construct() {
+        $this->order = new Order();
+        $this->orderDetail = new OrderDetail();
+    }
+
     public function getAll() {
-        $order = new Order();
-        return $order->all();
+        return $this->order->all();
     }
 
     public function create($data, $details) {
-        $order = new Order();
-        $order->set('dateOrder', $data['dateOrder']);
-        $order->set('total', $data['total']);
-        $order->set('idTable', $data['idTable']);
-        $order->set('isCancelled', 0);
-        $orderId = $order->save();
-
-        foreach ($details as $detail) {
-            $orderDetail = new OrderDetail();
-            $orderDetail->set('quantity', $detail['quantity']);
-            $orderDetail->set('price', $detail['price']);
-            $orderDetail->set('idOrder', $orderId);
-            $orderDetail->set('idDish', $detail['idDish']);
-            $orderDetail->save();
+        // Guardar la orden
+        $this->order->set('dateOrder', $data['dateOrder']);
+        $this->order->set('idTable', $data['idTable']);
+        $this->order->set('total', $data['total']);
+        
+        $orderId = $this->order->save();
+        
+        if ($orderId) {
+            // Guardar los detalles
+            foreach ($details as $detail) {
+                $this->orderDetail->set('idOrder', $orderId);
+                $this->orderDetail->set('idDish', $detail['idDish']);
+                $this->orderDetail->set('quantity', $detail['quantity']);
+                $this->orderDetail->set('price', $detail['price']);
+                if (!$this->orderDetail->save()) {
+                    return false;
+                }
+            }
+            return true;
         }
-        return $orderId;
+        return false;
     }
 
     public function cancel($id) {
-        $order = new Order();
-        $order->set('id', $id);
-        return $order->cancel();
+        $this->order->set('id', $id);
+        return $this->order->cancel();
     }
 
     public function getOrdersBetween($start, $end)
-{
-    $order = new Order();
-    return $order->getOrdersBetweenDates($start, $end);
-}
+    {
+        return $this->order->getOrdersBetweenDates($start, $end);
+    }
 
-public function getTotalBetween($start, $end)
-{
-    $order = new Order();
-    return $order->getTotalBetweenDates($start, $end);
-}
+    public function getTotalBetween($start, $end)
+    {
+        return $this->order->getTotalBetweenDates($start, $end);
+    }
 
 public function getRankingBetween($start, $end)
 {
