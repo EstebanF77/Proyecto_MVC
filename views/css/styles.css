@@ -211,4 +211,16 @@ h3 {
     color: #4CAF50;
     margin: 20px 0;
     font-size: 1.3em;
+}
+
+/* Estilos para grupos de botones */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-group .btn {
+    flex: 1;
+    text-align: center;
 } 
