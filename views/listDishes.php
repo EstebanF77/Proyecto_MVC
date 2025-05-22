@@ -40,11 +40,11 @@ $dishes = $controller->getAllDishes();
                 <?php foreach ($dishes as $dish): ?>
                     <tr>
                         <td><?= $dish->get('description') ?></td>
-                        <td>$<?= number_format($dish->get('price'), 2) ?></td>
+                        <td class="price">$<?= number_format($dish->get('price'), 2) ?></td>
                         <td><?= $dish->get('idCategory') ?></td>
                         <td class="actions">
                             <a href="formDishes.php?id=<?= $dish->get('id') ?>" class="btn btn-warning">Modificar</a>
-                            <a href="actions/deleteDish.php?id=<?= $dish->get('id') ?>" class="btn btn-danger">Eliminar</a>
+                            <a href="actions/deleteDish.php?id=<?= $dish->get('id') ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este plato?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

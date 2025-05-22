@@ -19,24 +19,36 @@ if ($id) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $id ? 'Modificar Mesa' : 'Nueva Mesa' ?></title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h1><?= $id ? 'Modificar Mesa' : 'Nueva Mesa' ?></h1>
-    
-    <form action="registrerTables.php" method="POST">
-        <?php if ($id): ?>
-            <input type="hidden" name="id" value="<?= $id ?>">
-        <?php endif; ?>
+    <div class="container">
+        <h1><?= $id ? 'Modificar Mesa' : 'Nueva Mesa' ?></h1>
         
-        <div>
-            <label for="name">Nombre de la Mesa:</label>
-            <input type="text" id="name" name="name" value="<?= $table ? $table->get('name') : '' ?>" required>
+        <div class="form-container">
+            <form action="registrerTables.php" method="POST">
+                <?php if ($id): ?>
+                    <input type="hidden" name="id" value="<?= $id ?>">
+                <?php endif; ?>
+                
+                <div>
+                    <label for="name">Nombre de la Mesa:</label>
+                    <input type="text" id="name" name="name" 
+                           value="<?= $table ? $table->get('name') : '' ?>" 
+                           required 
+                           maxlength="50">
+                </div>
+                
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">
+                        <?= $id ? 'Actualizar' : 'Crear' ?>
+                    </button>
+                    <a href="../listTables.php" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
         </div>
-        
-        <button type="submit"><?= $id ? 'Actualizar' : 'Crear' ?></button>
-    </form>
-    
-    <a href="../listTables.php">Volver</a>
+    </div>
 </body>
 </html>

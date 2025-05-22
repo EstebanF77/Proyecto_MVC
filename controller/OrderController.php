@@ -22,7 +22,7 @@ class OrderController {
     }
 
     public function create($data, $details) {
-        // Guardar la orden
+        
         $this->order->set('dateOrder', $data['dateOrder']);
         $this->order->set('idTable', $data['idTable']);
         $this->order->set('total', $data['total']);
@@ -30,7 +30,7 @@ class OrderController {
         $orderId = $this->order->save();
         
         if ($orderId) {
-            // Guardar los detalles
+            
             foreach ($details as $detail) {
                 $this->orderDetail->set('idOrder', $orderId);
                 $this->orderDetail->set('idDish', $detail['idDish']);

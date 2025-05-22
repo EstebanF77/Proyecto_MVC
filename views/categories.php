@@ -8,7 +8,7 @@ include '../controller/categoriesController.php';
 use app\controller\CategoriesController;
 use App\models\entities\Categories;
 
-$controller = new CategoriesController();  //objeto del controlador encerrado en un metodo del controlador
+$controller = new CategoriesController();  
 $categories = $controller->getAllCategories();
 ?>
 <!DOCTYPE html>

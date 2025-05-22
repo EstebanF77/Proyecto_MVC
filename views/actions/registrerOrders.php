@@ -6,9 +6,7 @@ include '../../controller/OrderController.php';
 
 use App\controller\OrderController;
 
-// Validate required fields
 if (!isset($_POST['dateOrder']) || !isset($_POST['idTable']) || !isset($_POST['idDish']) || !isset($_POST['quantity'])) {
-    // Si los datos vienen por GET (redirección), intentar obtenerlos de ahí
     if (isset($_GET['dateOrder']) && isset($_GET['idTable']) && isset($_GET['idDish']) && isset($_GET['quantity'])) {
         $_POST = $_GET;
     } else {
@@ -16,7 +14,7 @@ if (!isset($_POST['dateOrder']) || !isset($_POST['idTable']) || !isset($_POST['i
     }
 }
 
-// Calculate total
+
 $total = 0;
 $orderDetails = [];
 
@@ -34,14 +32,13 @@ foreach ($_POST['idDish'] as $index => $dishId) {
     }
 }
 
-// Prepare order data
 $orderData = [
     'dateOrder' => $_POST['dateOrder'],
     'idTable' => $_POST['idTable'],
     'total' => $total
 ];
 
-// Create order using controller
+
 $orderController = new OrderController();
 $result = $orderController->create($orderData, $orderDetails);
 

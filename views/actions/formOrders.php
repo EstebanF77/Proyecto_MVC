@@ -30,14 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_row'])) {
         $row_count++;
     } elseif (isset($_POST['submit_order'])) {
-        // Redirigir al archivo de registro con los datos del formulario
         $formData = http_build_query($_POST);
         header('Location: registrerOrders.php?' . $formData);
         exit;
     }
 }
 
-// Calcular total
 $total = 0;
 if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
     foreach ($saved_values['idDish'] as $index => $dishId) {

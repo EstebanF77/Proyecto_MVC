@@ -62,12 +62,12 @@ class Order extends Model {
     }
 
     public function update() {
-        // No se permite actualizar órdenes
+        
         return false;
     }
 
     public function delete() {
-        // No se permite eliminar órdenes
+       
         return false;
     }
     
@@ -187,7 +187,7 @@ public function findWithDetails($id)
 {
     $conexDB = new ConexDB();
 
-    // Obtener orden principal
+    
     $sql = "SELECT * FROM orders WHERE id = $id";
     $res = $conexDB->exeSQL($sql);
 
@@ -199,7 +199,7 @@ public function findWithDetails($id)
         $this->set('idTable', $row['idTable']);
         $this->set('isCancelled', $row['isCancelled']);
 
-        // Obtener detalles de la orden
+        
         $sqlDetails = "SELECT od.quantity, od.price, d.description 
                        FROM order_details od 
                        JOIN dishes d ON d.id = od.idDish 
@@ -214,7 +214,7 @@ public function findWithDetails($id)
             }
         }
 
-        $this->details = $details; // propiedad dinámica (no definida en atributos)
+        $this->details = $details;
     }
 
     $conexDB->close();

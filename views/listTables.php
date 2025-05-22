@@ -40,7 +40,7 @@ $tables = $controller->getAll();
                         <td><?= $table->get('name') ?></td>
                         <td class="actions">
                             <a href="actions/formTables.php?id=<?= $table->get('id') ?>" class="btn btn-warning">Modificar</a>
-                            <a href="actions/deleteTables.php?id=<?= $table->get('id') ?>" class="btn btn-danger">Eliminar</a>
+                            <a href="actions/deleteTables.php?id=<?= $table->get('id') ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar esta mesa?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

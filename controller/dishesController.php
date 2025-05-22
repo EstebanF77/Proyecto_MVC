@@ -30,7 +30,6 @@ use App\models\entities\Dish;
         return $dish->save() ? 'yes' : 'error';
     }
 
-    // Actualizar un plato existente (solo descripción y precio)
     public function updateDish($data)
     {
         if (empty($data['id']) || empty($data['descriptionDish']) || empty($data['unitPrice'])) {
@@ -45,17 +44,17 @@ use App\models\entities\Dish;
         return $dish->update() ? 'yes' : 'error';
     }
 
-    // Eliminar un plato (debes validar antes si no está relacionado)
+
     public function deleteDish($id)
     {
         if (!$id) return 'error';
 
     $dish = new Dish();
     $dish->set('id', $id);
-    return $dish->delete(); // puede retornar 'yes', 'error' o 'in_use'
+    return $dish->delete(); 
     }
 
-    // Obtener un solo plato por ID usando find()
+    
     public function getDishById($id)
     {
         $dish = new Dish();

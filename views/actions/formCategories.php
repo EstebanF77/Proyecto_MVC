@@ -21,27 +21,34 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($_GET['id']) ? 'Modificar' : 'Registrar'; ?> Categoría</title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
-    <h1><?php echo isset($_GET['id']) ? 'Modificar' : 'Registrar'; ?> Categoría</h1>
-    
-    <form action="registerCategories.php" method="post">
-        <?php if (isset($_GET['id'])): ?>
-            <input type="hidden" name="idCategorie" value="<?php echo $_GET['id']; ?>">
-        <?php endif; ?>
+    <div class="container">
+        <h1><?php echo isset($_GET['id']) ? 'Modificar' : 'Registrar'; ?> Categoría</h1>
         
-        <div>
-            <label for="name">Nombre de la categoría</label>
-            <input type="text" id="name" name="name" max="10" 
-                   value="<?php echo $category ? $category->get('name') : ''; ?>" required>
-        </div>
+        <div class="form-container">
+            <form action="registerCategories.php" method="post">
+                <?php if (isset($_GET['id'])): ?>
+                    <input type="hidden" name="idCategorie" value="<?php echo $_GET['id']; ?>">
+                <?php endif; ?>
+                
+                <div>
+                    <label for="name">Nombre de la categoría</label>
+                    <input type="text" id="name" name="name" maxlength="10" 
+                           value="<?php echo $category ? $category->get('name') : ''; ?>" required>
+                </div>
 
-        <div>
-            <button type="submit"><?php echo isset($_GET['id']) ? 'Modificar' : 'Registrar'; ?></button>
-            <a href="../categories.php">Cancelar</a>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">
+                        <?php echo isset($_GET['id']) ? 'Modificar' : 'Registrar'; ?>
+                    </button>
+                    <a href="../categories.php" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </body>
 
 </html>

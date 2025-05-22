@@ -13,7 +13,7 @@ class OrderDetail extends Model {
     protected $idOrder = null;
     protected $idDish = null;
 
-    // Permite guardar un nuevo detalle de orden
+    
     public function save()
     {
         $conexDb = new ConexDB();
@@ -28,26 +28,26 @@ class OrderDetail extends Model {
         return $res;
     }
 
-    // No necesitas actualizar un detalle de orden
+    
     public function update()
     {
         return false;
     }
 
-    // No se permite eliminar directamente detalles
+   
     public function delete()
     {
         return false;
     }
 
-    // Método para obtener todos los detalles de una orden específica
+    
     public function all()
     {
-        // No tiene sentido retornar todos los detalles de todas las órdenes
+        
         return [];
     }
 
-    // Devuelve los detalles de una orden específica
+    
     public function allByOrderId($orderId)
     {
         $conexDb = new ConexDB();
@@ -67,7 +67,7 @@ class OrderDetail extends Model {
                 $detail->set('price', $row['price']);
                 $detail->set('idOrder', $row['idOrder']);
                 $detail->set('idDish', $row['idDish']);
-                $detail->set('description', $row['description']); // valor extra útil para mostrar
+                $detail->set('description', $row['description']); 
                 $details[] = $detail;
             }
         }
