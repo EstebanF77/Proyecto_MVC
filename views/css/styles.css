@@ -344,4 +344,87 @@ h3 {
 .badge-danger {
     background-color: #f44336;
     color: white;
+}
+
+/* Estilos para el reporte de órdenes */
+.report-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.report-section h2 {
+    color: #333;
+    margin: 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.report-section h2:first-child {
+    margin-top: 0;
+}
+
+.report-section .total-section {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: right;
+}
+
+.report-section .total-section h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.4em;
+}
+
+.report-section .price {
+    color: #4CAF50;
+    font-weight: 500;
+}
+
+/* Estilos para inputs de fecha */
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}
+
+/* Grupo de filtros para reportes */
+.filter-group {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 25px;
+}
+.filter-group > div {
+    flex: none;
+}
+.filter-group label {
+    margin-bottom: 6px;
+    display: block;
+}
+.filter-group input[type="date"] {
+    width: 180px;
+    margin-bottom: 0;
+}
+.filter-btn-container {
+    display: flex;
+    align-items: flex-end;
+}
+.filter-btn-container .btn {
+    margin-bottom: 0;
+    padding: 10px 24px;
+    font-size: 1em;
 } 

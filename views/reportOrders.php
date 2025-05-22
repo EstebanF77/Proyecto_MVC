@@ -46,13 +46,19 @@ if ($startDate && $endDate) {
         </div>
 
         <form method="get" action="">
-            <label for="start">Fecha inicio:</label>
-            <input type="date" name="start" id="start" value="<?= $startDate ?>" required>
-
-            <label for="end">Fecha fin:</label>
-            <input type="date" name="end" id="end" value="<?= $endDate ?>" required>
-
-            <button type="submit">Filtrar</button>
+            <div class="filter-group">
+                <div>
+                    <label for="start">Fecha inicio:</label>
+                    <input type="date" name="start" id="start" value="<?= $startDate ?>" required>
+                </div>
+                <div>
+                    <label for="end">Fecha fin:</label>
+                    <input type="date" name="end" id="end" value="<?= $endDate ?>" required>
+                </div>
+                <div class="filter-btn-container">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
         </form>
 
         <?php if ($startDate && $endDate): ?>

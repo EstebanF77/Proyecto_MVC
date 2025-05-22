@@ -6,22 +6,23 @@ include '../../controller/OrderController.php';
 
 use App\controller\OrderController;
 
+// Validate required fields
 if (!isset($_POST['dateOrder']) || !isset($_POST['idTable']) || !isset($_POST['idDish']) || !isset($_POST['quantity'])) {
-    if (isset($_GET['dateOrder']) && isset($_GET['idTable']) && isset($_GET['idDish']) && isset($_GET['quantity'])) {
-        $_POST = $_GET;
-    } else {
-        die("Error: Faltan campos requeridos");
-    }
+    die("Error: Faltan campos requeridos");
 }
 
-
+// Calculate total
 $total = 0;
 $orderDetails = [];
 
 foreach ($_POST['idDish'] as $index => $dishId) {
     if (isset($_POST['quantity'][$index])) {
         $quantity = (int)$_POST['quantity'][$index];
-        $price = (float)$_POST['price'][$index];
+        // Obtener el precio del plato seleccionado
+        $dish = new \App\models\entities\Dish();
+        $dishData = $dish->find($dishId);
+        $price = $dishData ? $dishData->get('price') : 0;
+        
         $total += $quantity * $price;
         
         $orderDetails[] = [
@@ -32,13 +33,14 @@ foreach ($_POST['idDish'] as $index => $dishId) {
     }
 }
 
+// Prepare order data
 $orderData = [
     'dateOrder' => $_POST['dateOrder'],
     'idTable' => $_POST['idTable'],
     'total' => $total
 ];
 
-
+// Create order using controller
 $orderController = new OrderController();
 $result = $orderController->create($orderData, $orderDetails);
 

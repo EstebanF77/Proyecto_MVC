@@ -30,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_row'])) {
         $row_count++;
     } elseif (isset($_POST['submit_order'])) {
-        $formData = http_build_query($_POST);
-        header('Location: registrerOrders.php?' . $formData);
+        header('Location: registrerOrders.php');
         exit;
     }
 }
 
+// Calcular total
 $total = 0;
 if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
     foreach ($saved_values['idDish'] as $index => $dishId) {
@@ -54,84 +54,75 @@ if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Orden</title>
-    <script>
-        function updatePrice(select) {
-            const row = select.closest('tr');
-            const priceInput = row.querySelector('input[name="price[]"]');
-            const selectedOption = select.options[select.selectedIndex];
-            const price = selectedOption.getAttribute('data-price');
-            priceInput.value = price;
-            updateTotal();
-        }
-
-        function updateTotal() {
-            let total = 0;
-            const rows = document.querySelectorAll('table tr:not(:first-child)');
-            rows.forEach(row => {
-                const quantity = parseInt(row.querySelector('input[name="quantity[]"]').value) || 0;
-                const price = parseFloat(row.querySelector('input[name="price[]"]').value) || 0;
-                total += quantity * price;
-            });
-            document.querySelector('input[name="total"]').value = total.toFixed(2);
-        }
-    </script>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h1>Registrar Nueva Orden</h1>
+    <div class="container">
+        <h1>Registrar Nueva Orden</h1>
 
-    <form method="POST" action="">
-        <input type="hidden" name="row_count" value="<?= $row_count ?>">
+        <div class="form-container">
+            <form method="POST">
+                <input type="hidden" name="row_count" value="<?= $row_count ?>">
 
-        <label>Fecha:</label>
-        <input type="datetime-local" name="dateOrder" value="<?= htmlspecialchars($saved_values['dateOrder']) ?>" required><br>
-        
-        <label>Mesa:</label>
-        <select name="idTable" required>
-            <?php foreach ($tables as $table): ?>
-                <option value="<?= $table->get('id') ?>" <?= $saved_values['idTable'] == $table->get('id') ? 'selected' : '' ?>>
-                    <?= $table->get('name') ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br>
-
-        <label>Total:</label>
-        <input type="text" name="total" value="<?= number_format($total, 2) ?>" readonly><br>
-
-        <h3>Detalle de la Orden</h3>
-        <table border="1">
-            <tr>
-                <th>Plato</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-            </tr>
-            <?php for ($i = 0; $i < $row_count; $i++): ?>
-            <tr>
-                <td>
-                    <select name="idDish[]" required onchange="updatePrice(this)">
-                        <?php foreach ($dishes as $dish): ?>
-                            <option value="<?= $dish->get('id') ?>" 
-                                data-price="<?= $dish->get('price') ?>"
-                                <?= isset($saved_values['idDish'][$i]) && $saved_values['idDish'][$i] == $dish->get('id') ? 'selected' : '' ?>>
-                                <?= $dish->get('description') ?> (<?= $dish->get('price') ?>)
+                <div>
+                    <label>Fecha:</label>
+                    <input type="datetime-local" name="dateOrder" value="<?= htmlspecialchars($saved_values['dateOrder']) ?>" required>
+                </div>
+                
+                <div>
+                    <label>Mesa:</label>
+                    <select name="idTable" required>
+                        <?php foreach ($tables as $table): ?>
+                            <option value="<?= $table->get('id') ?>" <?= $saved_values['idTable'] == $table->get('id') ? 'selected' : '' ?>>
+                                <?= $table->get('name') ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
-                </td>
-                <td>
-                    <input type="number" name="quantity[]" min="1" value="<?= $saved_values['quantity'][$i] ?? 1 ?>" required onchange="updateTotal()">
-                </td>
-                <td>
-                    <input type="text" name="price[]" value="<?= $saved_values['price'][$i] ?? $dishes[0]->get('price') ?>" readonly>
-                </td>
-            </tr>
-            <?php endfor; ?>
-        </table>
+                </div>
 
-        <button type="submit" name="add_row">Agregar Plato</button>
-        <button type="submit" name="submit_order" formaction="registrerOrders.php">Registrar Orden</button>
-    </form>
+                <div>
+                    <label>Total:</label>
+                    <input type="text" name="total" value="<?= number_format($total, 2) ?>" readonly>
+                </div>
 
-    <a href="../listOrders.php">Volver</a>
+                <h3>Detalle de la Orden</h3>
+                <table>
+                    <tr>
+                        <th>Plato</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                    </tr>
+                    <?php for ($i = 0; $i < $row_count; $i++): ?>
+                    <tr>
+                        <td>
+                            <select name="idDish[]" required>
+                                <?php foreach ($dishes as $dish): ?>
+                                    <option value="<?= $dish->get('id') ?>" 
+                                        <?= isset($saved_values['idDish'][$i]) && $saved_values['idDish'][$i] == $dish->get('id') ? 'selected' : '' ?>>
+                                        <?= $dish->get('description') ?> (<?= $dish->get('price') ?>)
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="quantity[]" min="1" value="<?= $saved_values['quantity'][$i] ?? 1 ?>" required>
+                        </td>
+                        <td>
+                            <input type="text" name="price[]" value="<?= $saved_values['price'][$i] ?? $dishes[0]->get('price') ?>" readonly>
+                        </td>
+                    </tr>
+                    <?php endfor; ?>
+                </table>
+
+                <div class="button-group">
+                    <button type="submit" name="add_row" class="btn btn-primary">Agregar Plato</button>
+                    <button type="submit" name="submit_order" class="btn btn-success">Registrar Orden</button>
+                    <a href="../listOrders.php" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
