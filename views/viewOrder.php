@@ -2,12 +2,22 @@
 include '../models/drivers/conexDB.php';
 include '../models/entities/model.php';
 include '../models/entities/order.php';
+include '../models/entities/table.php';
 include '../models/entities/orderDetail.php';
 include '../controller/OrderController.php';
 include '../controller/OrderDetailController.php';
+include '../controller/TableController.php';
 
 use App\controller\OrderController;
 use App\controller\OrderDetailController;
+
+$tableController = new TableController();
+$tables = $tableController->getAll();
+
+$tableMap = [];
+foreach ($tables as $t) {
+    $tableMap[$t->get('id')] = $t->get('name');
+}
 
 $orderId = $_GET['id'] ?? null;
 
@@ -52,7 +62,7 @@ $details = $detailController->getByOrderId($orderId);
         <div class="form-container">
             <div class="order-info">
                 <p><strong>Fecha:</strong> <?= $order->get('dateOrder') ?></p>
-                <p><strong>ID Mesa:</strong> <?= $order->get('idTable') ?></p>
+                <p><strong>ID Mesa:</strong> <?= $tableMap[$order->get('idTable')] ?? 'Mesa desconocida' ?></p>
                 <p><strong>Estado:</strong> 
                     <span class="badge <?= $order->get('isCancelled') ? 'badge-danger' : 'badge-success' ?>">
                         <?= $order->get('isCancelled') ? 'Anulada' : 'Activa' ?>
