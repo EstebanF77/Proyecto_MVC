@@ -1,8 +1,8 @@
 <?php
 namespace app\controller;
 
-require_once __DIR__ . '/../models/entities/order.php';
-require_once __DIR__ . '/../models/entities/orderDetail.php';
+include '/../models/entities/order.php';
+include '/../models/entities/orderDetail.php';
 
 use App\models\entities\Order;
 use App\models\entities\OrderDetail;

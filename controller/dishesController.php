@@ -8,14 +8,14 @@ use App\models\entities\Dish;
 
     class DishesController
 {
-    // Obtener todos los platos
+   
     public function getAllDishes()
     {
         $dish = new Dish();
         return $dish->all();
     }
 
-    // Guardar nuevo plato
+  
     public function saveNewDish($data)
     {
         if (empty($data['descriptionDish']) || empty($data['unitPrice']) || empty($data['categories'])) {

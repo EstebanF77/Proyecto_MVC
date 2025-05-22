@@ -1,8 +1,6 @@
 <?php
 namespace App\models\entities;
 
-require_once __DIR__ . '/model.php';
-require_once __DIR__ . '/../drivers/conexDB.php';
 
 use App\models\drivers\ConexDB;
 

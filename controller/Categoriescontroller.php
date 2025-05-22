@@ -42,7 +42,7 @@ class CategoriesController
     }
 
     public function removeCategorie($id){
-        // Verificar si hay platos asociados
+
         $hasDishes = $this->categories->hasAssociatedDishes($id);
         
         if ($hasDishes) {

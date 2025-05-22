@@ -2,11 +2,20 @@
 include '../models/drivers/conexDB.php';
 include '../models/entities/model.php';
 include '../models/entities/order.php';
+include '../models/entities/table.php';
 include '../controller/OrderController.php';
+include '../controller/TableController.php';
 
 use App\controller\OrderController;
 
 $controller = new OrderController();
+$tableController = new TableController();
+$tables = $tableController->getAll();
+
+$tableMap = [];
+foreach ($tables as $t) {
+    $tableMap[$t->get('id')] = $t->get('name');
+}
 
 $startDate = $_GET['start'] ?? null;
 $endDate = $_GET['end'] ?? null;
@@ -36,7 +45,6 @@ if ($startDate && $endDate) {
             <h1>Reporte de Órdenes</h1>
         </div>
 
-        <!-- Formulario de filtro -->
         <form method="get" action="">
             <label for="start">Fecha inicio:</label>
             <input type="date" name="start" id="start" value="<?= $startDate ?>" required>
@@ -64,7 +72,7 @@ if ($startDate && $endDate) {
                         <tr>
                             <td><?= $order->get('id') ?></td>
                             <td><?= $order->get('dateOrder') ?></td>
-                            <td><?= $order->get('idTable') ?></td>
+                            <td><?= $tableMap[$order->get('idTable')] ?? 'Mesa desconocida' ?></td>
                             <td>$<?= number_format($order->get('total'), 2) ?></td>
                         </tr>
                     <?php endforeach; ?>

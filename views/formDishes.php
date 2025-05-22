@@ -16,7 +16,7 @@ $controller = new DishesController();
 $catController = new CategoriesController();
 $categories = $catController->getAllCategories();
 
-// Si se está editando un plato
+
 if ($idDish) {
     $dish = $controller->getDishById($idDish);
 }
