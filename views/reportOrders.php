@@ -63,7 +63,7 @@ if ($startDate && $endDate) {
                     <tr>
                         <th>ID</th>
                         <th>Fecha</th>
-                        <th>ID Mesa</th>
+                        <th>Mesa</th>
                         <th>Total</th>
                     </tr>
                 </thead>
