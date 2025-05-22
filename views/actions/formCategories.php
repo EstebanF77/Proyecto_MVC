@@ -28,17 +28,11 @@ if (isset($_GET['id'])) {
     <div class="container">
         <h1><?php echo isset($_GET['id']) ? 'Modificar' : 'Registrar'; ?> Categoría</h1>
         
-        <div class="form-container">
-            <form action="registerCategories.php" method="post">
-                <?php if (isset($_GET['id'])): ?>
-                    <input type="hidden" name="idCategorie" value="<?php echo $_GET['id']; ?>">
-                <?php endif; ?>
-                
-                <div>
-                    <label for="name">Nombre de la categoría</label>
-                    <input type="text" id="name" name="name" maxlength="10" 
-                           value="<?php echo $category ? $category->get('name') : ''; ?>" required>
-                </div>
+        <div>
+            <label for="name">Nombre de la categoría</label>
+            <input type="text" id="name" name="name" maxlength="10"  
+                   value="<?php echo $category ? $category->get('name') : ''; ?>" required>
+        </div>
 
                 <div class="button-group">
                     <button type="submit" class="btn btn-primary">

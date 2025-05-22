@@ -80,7 +80,7 @@ if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
 <body>
     <h1>Registrar Nueva Orden</h1>
 
-    <form method="POST" action="registrerOrders.php">
+    <form method="POST" action="">
         <input type="hidden" name="row_count" value="<?= $row_count ?>">
 
         <label>Fecha:</label>
@@ -129,7 +129,7 @@ if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
         </table>
 
         <button type="submit" name="add_row">Agregar Plato</button>
-        <button type="submit" name="submit_order">Registrar Orden</button>
+        <button type="submit" name="submit_order" formaction="registrerOrders.php">Registrar Orden</button>
     </form>
 
     <a href="../listOrders.php">Volver</a>
