@@ -31,7 +31,7 @@ if ($id) {
         
         <div>
             <label for="name">Nombre de la Mesa:</label>
-            <input type="text" id="name" name="name" value="<?= $table ? $table->get('name') : '' ?>" required>
+            <input type="text" id="name" name="name" maxlength="10" value="<?= $table ? $table->get('name') : '' ?>" required>
         </div>
         
         <button type="submit"><?= $id ? 'Actualizar' : 'Crear' ?></button>
