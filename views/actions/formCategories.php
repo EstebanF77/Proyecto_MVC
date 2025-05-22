@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
         
         <div>
             <label for="name">Nombre de la categoría</label>
-            <input type="text" id="name" name="name" 
+            <input type="text" id="name" name="name" max="10" 
                    value="<?php echo $category ? $category->get('name') : ''; ?>" required>
         </div>
 

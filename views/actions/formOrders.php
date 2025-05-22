@@ -30,8 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_row'])) {
         $row_count++;
     } elseif (isset($_POST['submit_order'])) {
-        // Aquí iría el guardado real en la base de datos
-        header('Location: registrerOrders.php');
+        // Redirigir al archivo de registro con los datos del formulario
+        $formData = http_build_query($_POST);
+        header('Location: registrerOrders.php?' . $formData);
         exit;
     }
 }
@@ -81,7 +82,7 @@ if (!empty($saved_values['idDish']) && !empty($saved_values['quantity'])) {
 <body>
     <h1>Registrar Nueva Orden</h1>
 
-    <form method="POST">
+    <form method="POST" action="registrerOrders.php">
         <input type="hidden" name="row_count" value="<?= $row_count ?>">
 
         <label>Fecha:</label>

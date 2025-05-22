@@ -8,7 +8,12 @@ use App\controller\OrderController;
 
 // Validate required fields
 if (!isset($_POST['dateOrder']) || !isset($_POST['idTable']) || !isset($_POST['idDish']) || !isset($_POST['quantity'])) {
-    die("Error: Faltan campos requeridos");
+    // Si los datos vienen por GET (redirección), intentar obtenerlos de ahí
+    if (isset($_GET['dateOrder']) && isset($_GET['idTable']) && isset($_GET['idDish']) && isset($_GET['quantity'])) {
+        $_POST = $_GET;
+    } else {
+        die("Error: Faltan campos requeridos");
+    }
 }
 
 // Calculate total
