@@ -55,7 +55,7 @@ foreach ($categories as $cat) {
                         <td><?= $categoryMap[$dish->get('idCategory')] ?? 'Sin categoría' ?></td>
                         <td class="actions">
                             <a href="formDishes.php?id=<?= $dish->get('id') ?>" class="btn btn-warning">Modificar</a>
-                            <a href="actions/deleteDish.php?id=<?= $dish->get('id') ?>" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este plato?')">Eliminar</a>
+                            <a href="actions/deleteDish.php?id=<?= $dish->get('id') ?>" class="btn btn-danger" >Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
