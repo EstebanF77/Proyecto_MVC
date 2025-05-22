@@ -8,85 +8,72 @@ use App\models\drivers\ConexDB;
 
 class OrderDetail extends Model {
     protected $id = null;
-    protected $idOrder = null;
-    protected $idDish = null;
     protected $quantity = 0;
     protected $price = 0;
+    protected $idOrder = null;
+    protected $idDish = null;
 
-    public function __construct() {
-        // No llamar al constructor del padre ya que Model es una clase abstracta
+    // Permite guardar un nuevo detalle de orden
+    public function save()
+    {
+        $conexDb = new ConexDB();
+        $sql = "INSERT INTO order_details (quantity, price, idOrder, idDish) VALUES (
+                    {$this->quantity},
+                    {$this->price},
+                    {$this->idOrder},
+                    {$this->idDish}
+                )";
+        $res = $conexDb->exeSQL($sql);
+        $conexDb->close();
+        return $res;
     }
 
-    public function all() {
-        $conexDB = new ConexDB();
-        $sql = "SELECT * FROM order_details";
-        $res = $conexDB->exeSQL($sql);
+    // No necesitas actualizar un detalle de orden
+    public function update()
+    {
+        return false;
+    }
+
+    // No se permite eliminar directamente detalles
+    public function delete()
+    {
+        return false;
+    }
+
+    // Método para obtener todos los detalles de una orden específica
+    public function all()
+    {
+        // No tiene sentido retornar todos los detalles de todas las órdenes
+        return [];
+    }
+
+    // Devuelve los detalles de una orden específica
+    public function allByOrderId($orderId)
+    {
+        $conexDb = new ConexDB();
+        $sql = "SELECT od.*, d.description 
+                FROM order_details od
+                JOIN dishes d ON d.id = od.idDish
+                WHERE od.idOrder = $orderId";
+        
+        $res = $conexDb->exeSQL($sql);
         $details = [];
-        if ($res->num_rows > 0) {
+
+        if ($res && $res->num_rows > 0) {
             while ($row = $res->fetch_assoc()) {
                 $detail = new OrderDetail();
                 $detail->set('id', $row['id']);
-                $detail->set('idOrder', $row['idOrder']);
-                $detail->set('idDish', $row['idDish']);
                 $detail->set('quantity', $row['quantity']);
                 $detail->set('price', $row['price']);
-                array_push($details, $detail);
-            }
-        }
-        $conexDB->close();
-        return $details;
-    }
-
-    public function save() {
-        $conexDB = new ConexDB();
-        $sql = "INSERT INTO order_details (idOrder, idDish, quantity, price) 
-                VALUES (" . $this->idOrder . ", " . $this->idDish . ", " . 
-                $this->quantity . ", " . $this->price . ")";
-        $res = $conexDB->exeSQL($sql);
-        $conexDB->close();
-        return $res;
-    }
-
-    public function update() {
-        $conexDB = new ConexDB();
-        $sql = "UPDATE order_details SET 
-                idOrder = " . $this->idOrder . ",
-                idDish = " . $this->idDish . ",
-                quantity = " . $this->quantity . ",
-                price = " . $this->price . "
-                WHERE id = " . $this->id;
-        $res = $conexDB->exeSQL($sql);
-        $conexDB->close();
-        return $res;
-    }
-
-    public function delete() {
-        $conexDB = new ConexDB();
-        $sql = "DELETE FROM order_details WHERE id = " . $this->id;
-        $res = $conexDB->exeSQL($sql);
-        $conexDB->close();
-        return $res;
-    }
-
-    public function findByOrder($orderId) {
-        $conexDB = new ConexDB();
-        $sql = "SELECT * FROM order_details WHERE idOrder = " . $orderId;
-        $res = $conexDB->exeSQL($sql);
-        $details = [];
-        
-        if ($res->num_rows > 0) {
-            while ($row = $res->fetch_assoc()) {
-                $detail = new OrderDetail();
-                $detail->set('id', $row['id']);
                 $detail->set('idOrder', $row['idOrder']);
                 $detail->set('idDish', $row['idDish']);
-                $detail->set('quantity', $row['quantity']);
-                $detail->set('price', $row['price']);
-                array_push($details, $detail);
+                $detail->set('description', $row['description']); // valor extra útil para mostrar
+                $details[] = $detail;
             }
         }
-        
-        $conexDB->close();
+
+        $conexDb->close();
         return $details;
     }
+    
 } 
