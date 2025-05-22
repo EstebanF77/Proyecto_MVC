@@ -62,7 +62,7 @@ $details = $detailController->getByOrderId($orderId);
         <div class="form-container">
             <div class="order-info">
                 <p><strong>Fecha:</strong> <?= $order->get('dateOrder') ?></p>
-                <p><strong>ID Mesa:</strong> <?= $order->get('idTable') ?></p>
+                <p><strong>Mesa:</strong> <?= $tableMap[$order->get('idTable')] ?? 'Mesa desconocida' ?></p>
                 <p><strong>Estado:</strong> 
                     <span class="badge <?= $order->get('isCancelled') ? 'badge-danger' : 'badge-success' ?>">
                         <?= $order->get('isCancelled') ? 'Anulada' : 'Activa' ?>

@@ -73,4 +73,4 @@ foreach ($tables as $t) {
         <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
     </div>
 </body>
-</html> 
+</html>

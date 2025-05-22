@@ -52,64 +52,81 @@ if (isset($_POST['submit_order'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Nueva Orden</title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h1>Registrar Nueva Orden</h1>
+    <div class="container">
+        <div class="header">
+            <h1>Registrar Nueva Orden</h1>
+        </div>
+        <div class="form-container">
+            <form method="POST" action="">
+                <input type="hidden" name="row_count" value="<?= $row_count ?>">
 
-    <form method="POST" action="">
-        <input type="hidden" name="row_count" value="<?= $row_count ?>">
+                <div>
+                    <label>Fecha:</label>
+                    <input type="datetime-local" name="dateOrder" required value="<?= htmlspecialchars($saved_values['dateOrder']) ?>">
+                </div>
 
-        <label>Fecha:</label>
-        <input type="datetime-local" name="dateOrder" required value="<?= htmlspecialchars($saved_values['dateOrder']) ?>"><br><br>
+                <div>
+                    <label>Mesa:</label>
+                    <select name="idTable" required>
+                        <option value="">Seleccione una mesa</option>
+                        <?php foreach ($tables as $table): ?>
+                            <option value="<?= $table->get('id') ?>" <?= $saved_values['idTable'] == $table->get('id') ? 'selected' : '' ?>>
+                                <?= $table->get('name') ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <label>Mesa:</label>
-        <select name="idTable" required>
-            <option value="">Seleccione una mesa</option>
-            <?php foreach ($tables as $table): ?>
-                <option value="<?= $table->get('id') ?>" <?= $saved_values['idTable'] == $table->get('id') ? 'selected' : '' ?>>
-                    <?= $table->get('name') ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br><br>
+                <div>
+                    <label>Total:</label>
+                    <input type="text" name="total" value="<?= number_format($total, 2) ?>" readonly>
+                </div>
 
-        <label>Total:</label>
-        <input type="text" name="total" value="<?= number_format($total, 2) ?>" readonly><br><br>
-
-        <h3>Detalle de la Orden</h3>
-        <table border="1">
-            <tr>
-                <th>Plato</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-            </tr>
-            <?php for ($i = 0; $i < $row_count; $i++): ?>
-                <tr>
-                    <td>
-                        <select name="idDish[]" required>
-                            <option value="">Seleccione un plato</option>
-                            <?php foreach ($dishes as $dish): ?>
-                                <option value="<?= $dish->get('id') ?>"
-                                    <?= isset($saved_values['idDish'][$i]) && $saved_values['idDish'][$i] == $dish->get('id') ? 'selected' : '' ?>>
-                                    <?= $dish->get('description') ?> (<?= number_format($dish->get('price'), 2) ?>)
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="number" name="quantity[]" min="1" value="<?= $saved_values['quantity'][$i] ?? 1 ?>" required>
-                    </td>
-                    <td>
-                        <input type="text" name="price[]" value="<?= $saved_values['price'][$i] ?? '' ?>" readonly>
-                    </td>
-                </tr>
-            <?php endfor; ?>
-        </table><br>
-
-        <button type="submit" name="add_row">Agregar Plato</button>
-        <button type="submit" name="submit_order">Registrar Orden</button>
-    </form>
-
-    <br><a href="../listOrders.php">Volver</a>
+                <h3>Detalle de la Orden</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plato</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php for ($i = 0; $i < $row_count; $i++): ?>
+                            <tr>
+                                <td>
+                                    <select name="idDish[]" required>
+                                        <option value="">Seleccione un plato</option>
+                                        <?php foreach ($dishes as $dish): ?>
+                                            <option value="<?= $dish->get('id') ?>"
+                                                <?= isset($saved_values['idDish'][$i]) && $saved_values['idDish'][$i] == $dish->get('id') ? 'selected' : '' ?>>
+                                                <?= $dish->get('description') ?> (<?= number_format($dish->get('price'), 2) ?>)
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" name="quantity[]" min="1" value="<?= $saved_values['quantity'][$i] ?? 1 ?>" required>
+                                </td>
+                                <td>
+                                    <input type="text" name="price[]" value="<?= $saved_values['price'][$i] ?? '' ?>" readonly>
+                                </td>
+                            </tr>
+                        <?php endfor; ?>
+                    </tbody>
+                </table>
+                <div class="button-group">
+                    <button type="submit" name="add_row" class="btn btn-secondary">Agregar Plato</button>
+                    <button type="submit" name="submit_order" class="btn btn-primary">Registrar Orden</button>
+                    <a href="../listOrders.php" class="btn btn-secondary">Volver</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
