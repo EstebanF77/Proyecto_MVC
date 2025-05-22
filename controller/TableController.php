@@ -19,7 +19,9 @@ class TableController {
     public function create($name) {
         $table = new Table();
         $table->set('name', $name);
-        return $table->save();
+        $res = $table->save();
+        return $res ? 'yes' : 'not';
+        
     }
 
     public function update($id, $name) {
