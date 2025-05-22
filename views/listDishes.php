@@ -43,7 +43,7 @@ foreach ($categories as $cat) {
                 <tr>
                     <th>Descripción</th>
                     <th>Precio</th>
-                    <th>ID Categoría</th>
+                    <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
