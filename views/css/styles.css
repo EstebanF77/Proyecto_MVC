@@ -1,10 +1,10 @@
-/* Estilos generales */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #f4f6fb;
 }
 
 .container {
@@ -13,15 +13,15 @@ body {
     background: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(25, 118, 210, 0.08);
 }
 
-/* Encabezados */
+
 h1 {
-    color: #333;
+    color: #1976d2;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #e3eafc;
 }
 
 .header {
@@ -30,16 +30,16 @@ h1 {
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #e3eafc;
 }
 
 .header h1 {
     margin: 0;
-    color: #333;
+    color: #1976d2;
     font-size: 1.8em;
 }
 
-/* Botones */
+
 .btn {
     display: inline-block;
     padding: 8px 16px;
@@ -52,35 +52,35 @@ h1 {
 }
 
 .btn-primary {
-    background-color: #4CAF50;
+    background-color: #1976d2;
 }
 
 .btn-primary:hover {
-    background-color: #45a049;
+    background-color: #1565c0;
 }
 
 .btn-warning {
-    background-color: #ff9800;
+    background-color: #fb8c00;
 }
 
 .btn-warning:hover {
-    background-color: #f57c00;
+    background-color: #ef6c00;
 }
 
 .btn-danger {
-    background-color: #f44336;
+    background-color: #e53935;
 }
 
 .btn-danger:hover {
-    background-color: #d32f2f;
+    background-color: #b71c1c;
 }
 
 .btn-secondary {
-    background-color: #607d8b;
+    background-color: #455a64;
 }
 
 .btn-secondary:hover {
-    background-color: #455a64;
+    background-color: #263238;
 }
 
 /* Tablas */
@@ -89,21 +89,21 @@ table {
     border-collapse: collapse;
     margin: 20px 0;
     background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(25, 118, 210, 0.08);
 }
 
 table th {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #e3eafc;
+    color: #1976d2;
     font-weight: 600;
     text-align: left;
     padding: 15px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #bbdefb;
 }
 
 table td {
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e3eafc;
     vertical-align: middle;
 }
 
@@ -112,10 +112,10 @@ table tr:last-child td {
 }
 
 table tr:hover {
-    background-color: #f5f5f5;
+    background-color: #f0f4ff;
 }
 
-/* Estilos para los botones de acción */
+
 .actions {
     display: flex;
     gap: 10px;
@@ -127,7 +127,7 @@ table tr:hover {
     font-size: 0.9em;
 }
 
-/* Badges para estados */
+
 .badge {
     padding: 4px 8px;
     border-radius: 4px;
@@ -135,18 +135,18 @@ table tr:hover {
 }
 
 .badge-success {
-    background-color: #4CAF50;
+    background-color: #da280d;
     color: white;
 }
 
 .badge-danger {
-    background-color: #f44336;
+    background-color: #e53935;
     color: white;
 }
 
-/* Enlaces de texto */
+
 a {
-    color: #2196F3;
+    color: #1976d2;
     text-decoration: none;
 }
 
@@ -154,7 +154,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Estilos para el formulario de categorías */
+
 form div {
     margin-bottom: 20px;
 }
@@ -162,26 +162,26 @@ form div {
 form label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: #1976d2;
     font-weight: 500;
 }
 
 form input[type="text"] {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #bbdefb;
     border-radius: 4px;
     font-size: 1em;
 }
 
 form input[type="text"]:focus {
     outline: none;
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+    border-color: #1976d2;
+    box-shadow: 0 0 5px rgba(25, 118, 210, 0.15);
 }
 
 form button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #1976d2;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -193,13 +193,13 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #1565c0;
 }
 
 form a {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #607d8b;
+    background-color: #455a64;
     color: white;
     text-decoration: none;
     border-radius: 4px;
@@ -207,24 +207,24 @@ form a {
 }
 
 form a:hover {
-    background-color: #455a64;
+    background-color: #263238;
     text-decoration: none;
 }
 
-/* Estilos para el contenedor del formulario */
+
 .form-container {
     max-width: 600px;
     margin: 0 auto;
     background: white;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(25, 118, 210, 0.08);
 }
 
 .form-container label {
     display: block;
     margin-bottom: 8px;
-    color: #333;
+    color: #1976d2;
     font-weight: 500;
 }
 
@@ -233,7 +233,7 @@ form a:hover {
 .form-container select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #bbdefb;
     border-radius: 4px;
     font-size: 1em;
     margin-bottom: 15px;
@@ -243,8 +243,8 @@ form a:hover {
 .form-container input[type="number"]:focus,
 .form-container select:focus {
     outline: none;
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+    border-color: #1976d2;
+    box-shadow: 0 0 5px rgba(25, 118, 210, 0.15);
 }
 
 .form-container .button-group {
@@ -258,26 +258,26 @@ form a:hover {
     text-align: center;
 }
 
-/* Estilos para los precios en las tablas */
+
 .price {
     font-weight: 500;
-    color: #4CAF50;
+    color: #3b3494;
 }
 
-/* Estilos para las tablas de reportes */
+
 h2 {
-    color: #333;
+    color: #1976d2;
     margin: 30px 0 15px;
     font-size: 1.5em;
 }
 
 h3 {
-    color: #4CAF50;
+    color: #e20e0e;
     margin: 20px 0;
     font-size: 1.3em;
 }
 
-/* Estilos para grupos de botones */
+
 .button-group {
     display: flex;
     gap: 10px;
@@ -289,9 +289,9 @@ h3 {
     text-align: center;
 }
 
-/* Estilos para la vista de detalles de orden */
+
 .order-info {
-    background-color: #f8f9fa;
+    background-color: #e3eafc;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -303,31 +303,31 @@ h3 {
 }
 
 .order-info strong {
-    color: #333;
+    color: #1976d2;
     margin-right: 10px;
 }
 
 .total-section {
     margin-top: 30px;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #e3eafc;
     border-radius: 8px;
     text-align: right;
 }
 
 .total-section h3 {
     margin: 0;
-    color: #333;
+    color: #1976d2;
     font-size: 1.4em;
 }
 
 .total-section .price {
-    color: #4CAF50;
+    color: #df1001;
     font-weight: bold;
     font-size: 1.2em;
 }
 
-/* Estilos para los badges de estado */
+
 .badge {
     display: inline-block;
     padding: 5px 10px;
@@ -337,29 +337,29 @@ h3 {
 }
 
 .badge-success {
-    background-color: #4CAF50;
+    background-color: #fa1717;
     color: white;
 }
 
 .badge-danger {
-    background-color: #f44336;
+    background-color: #e53935;
     color: white;
 }
 
-/* Estilos para el reporte de órdenes */
+
 .report-section {
     margin-top: 30px;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(25, 118, 210, 0.08);
 }
 
 .report-section h2 {
-    color: #333;
+    color: #1976d2;
     margin: 20px 0;
     padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #e3eafc;
 }
 
 .report-section h2:first-child {
@@ -369,39 +369,41 @@ h3 {
 .report-section .total-section {
     margin: 20px 0;
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: #e3eafc;
     border-radius: 8px;
     text-align: right;
 }
 
 .report-section .total-section h3 {
     margin: 0;
-    color: #333;
+    color: #1976d2;
     font-size: 1.4em;
 }
 
 .report-section .price {
-    color: #4CAF50;
+    color: #cd3610;
     font-weight: 500;
 }
 
-/* Estilos para inputs de fecha */
+
 input[type="date"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #bbdefb;
     border-radius: 4px;
     font-size: 1em;
     margin-bottom: 15px;
+    background: #f4f6fb;
+    color: #1976d2;
 }
 
 input[type="date"]:focus {
     outline: none;
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+    border-color: #1976d2;
+    box-shadow: 0 0 5px rgba(25, 118, 210, 0.15);
 }
 
-/* Grupo de filtros para reportes */
+
 .filter-group {
     display: flex;
     gap: 20px;
@@ -414,6 +416,7 @@ input[type="date"]:focus {
 .filter-group label {
     margin-bottom: 6px;
     display: block;
+    color: #1976d2;
 }
 .filter-group input[type="date"] {
     width: 180px;

@@ -31,7 +31,7 @@ h1 {
 /* Enlaces principales */
 .container a {
     display: block;
-    background-color: #4CAF50;
+    background-color: #d41717;
     color: white;
     text-decoration: none;
     padding: 12px;
@@ -42,7 +42,7 @@ h1 {
 }
 
 .container a:hover {
-    background-color: #45a049;
+    background-color: #df0707;
 }
 
 

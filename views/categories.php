@@ -1,5 +1,5 @@
 <?php
-//interface que carga los datos de las categorías
+
 include '../models/drivers/conexDB.php';    
 include '../models/entities/model.php';
 include '../models/entities/categories.php';

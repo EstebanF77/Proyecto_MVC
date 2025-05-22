@@ -5,11 +5,11 @@ require_once '../../models/entities/dish.php';
 use App\models\entities\Table;
 use App\models\entities\Dish;
 
-// Obtener datos
+
 $tables = (new Table())->all();
 $dishes = (new Dish())->all();
 
-// Valores guardados y control de filas
+
 $row_count = $_POST['row_count'] ?? 1;
 $saved_values = [
     'dateOrder' => $_POST['dateOrder'] ?? '',
@@ -19,7 +19,7 @@ $saved_values = [
     'price'     => []
 ];
 
-// Calcular precios unitarios y total
+
 $total = 0;
 foreach ($saved_values['idDish'] as $i => $dishId) {
     foreach ($dishes as $dish) {
@@ -33,12 +33,12 @@ foreach ($saved_values['idDish'] as $i => $dishId) {
     }
 }
 
-// Si se presionó "Agregar fila"
+
 if (isset($_POST['add_row'])) {
     $row_count++;
 }
 
-// Si se presionó "Registrar orden"
+
 if (isset($_POST['submit_order'])) {
     $_POST['price'] = $saved_values['price'];
     $_POST['total'] = $total;
